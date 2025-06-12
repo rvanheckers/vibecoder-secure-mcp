@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PROJECT_DIR := $(CURDIR)
 
-.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress
+.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress visual-roadmap roadmap-save
 
 init:
 	@python main.py generate $(PROJECT_DIR)
@@ -67,6 +67,12 @@ autorun:
 
 compress:
 	@python -c "from src.agents.context_compression import VibecoderContextCompressor; import json; compressor = VibecoderContextCompressor('.'); print(json.dumps(compressor.get_compressed_context_summary(), indent=2))"
+
+visual-roadmap:
+	@python -c "import sys; sys.path.insert(0, '.'); from src.agents.visual_roadmap import generate_visual_roadmap; print(generate_visual_roadmap('.', 'overview'))"
+
+roadmap-save:
+	@python -c "import sys; sys.path.insert(0, '.'); from src.agents.visual_roadmap import VibecoderVisualRoadmap; generator = VibecoderVisualRoadmap('.'); files = generator.save_roadmap_visualization(); print('📁 Roadmap visualizations saved:'); [print(f'  {style}: {path}') for style, path in files.items()]"
 
 rebuild: clean init generate validate lock sign audit backup
 	@echo "Rebuild complete."

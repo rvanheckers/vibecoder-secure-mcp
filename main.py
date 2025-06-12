@@ -29,6 +29,7 @@ from agents.backup import snapshot
 from agents.monitoring import VibecoderMonitor, create_dashboard_html
 from agents.smart_automation import VibecoderSmartAutomation, run_smart_automation
 from agents.context_compression import VibecoderContextCompressor, compress_conversation_for_handover
+from agents.visual_roadmap import VibecoderVisualRoadmap, generate_visual_roadmap
 
 
 # FastAPI app
@@ -72,6 +73,19 @@ class CompressRequest(BaseModel):
     conversation_text: str
     topic: Optional[str] = None
     vibecoder_focus: Optional[str] = None
+    
+    @validator('project_path')
+    def validate_project_path(cls, v):
+        """Validate that project_path is within allowed boundaries"""
+        path = Path(v).resolve()
+        if ".." in str(path) or not path.exists():
+            raise ValueError("Invalid or non-existent project path")
+        return str(path)
+
+
+class RoadmapRequest(BaseModel):
+    project_path: str
+    style: Optional[str] = "overview"  # timeline, tree, progress, grid, overview
     
     @validator('project_path')
     def validate_project_path(cls, v):
@@ -329,6 +343,39 @@ async def get_compression_summary(request: ProjectPathRequest):
         raise HTTPException(status_code=500, detail=f"Compression summary failed: {str(e)}")
 
 
+@app.post("/roadmap", response_model=OperationResponse)
+async def get_visual_roadmap(request: RoadmapRequest):
+    """Get visual roadmap in specified style"""
+    try:
+        roadmap_content = generate_visual_roadmap(request.project_path, request.style)
+        
+        return OperationResponse(
+            success=True,
+            message=f"Visual roadmap generated in {request.style} style",
+            data={"roadmap": roadmap_content, "style": request.style}
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Roadmap generation failed: {str(e)}")
+
+
+@app.post("/roadmap/visual", response_model=OperationResponse)
+async def create_visual_roadmap_files(request: ProjectPathRequest):
+    """Create and save all visual roadmap files"""
+    try:
+        generator = VibecoderVisualRoadmap(request.project_path)
+        files = generator.save_roadmap_visualization()
+        
+        return OperationResponse(
+            success=True,
+            message=f"Visual roadmap files created: {len(files)} files",
+            data={"files": files}
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Visual roadmap creation failed: {str(e)}")
+
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
@@ -354,6 +401,8 @@ async def root():
             "/automation/run",
             "/compress",
             "/compress/summary",
+            "/roadmap",
+            "/roadmap/visual",
             "/health",
             "/openapi.json"
         ]
