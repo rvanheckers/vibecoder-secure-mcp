@@ -306,66 +306,116 @@ class VibecoderVisualRoadmap:
             return {"milestones": {}, "current_sprint": "Unknown"}
     
     def generate_roadmap_html(self) -> str:
-        """Generate HTML version of roadmap for web viewing"""
+        """Generate clean white HTML roadmap matching dashboard theme"""
         roadmap_data = self._load_roadmap_data()
         milestones = self._get_visual_milestones(roadmap_data)
+        current_sprint = roadmap_data.get("current_sprint", "Unknown")
         
         total = len(milestones)
         completed = len([m for m in milestones if m.status == "completed"])
+        in_progress = len([m for m in milestones if m.status == "in_progress"])
+        planned = len([m for m in milestones if m.status == "planned"])
         progress_percentage = (completed / total * 100) if total > 0 else 0
         
         html = f"""<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIBECODER Roadmap</title>
-    <meta charset="utf-8">
     <style>
-        body {{ font-family: 'Courier New', monospace; margin: 20px; background: #1a1a1a; color: #00ff00; }}
-        .container {{ max-width: 1200px; margin: 0 auto; }}
-        .header {{ text-align: center; border-bottom: 2px solid #00ff00; padding-bottom: 10px; }}
-        .progress-bar {{ width: 100%; height: 30px; background: #333; border: 1px solid #00ff00; margin: 20px 0; }}
-        .progress-fill {{ height: 100%; background: linear-gradient(90deg, #00ff00, #ffff00); width: {progress_percentage}%; }}
-        .milestone {{ border: 1px solid #00ff00; margin: 10px 0; padding: 15px; background: #0a0a0a; }}
-        .milestone.completed {{ border-color: #00ff00; background: #002200; }}
-        .milestone.in_progress {{ border-color: #ffff00; background: #222200; }}
-        .milestone.planned {{ border-color: #666; background: #111; }}
-        .milestone-header {{ font-size: 18px; font-weight: bold; margin-bottom: 10px; }}
-        .milestone-meta {{ color: #aaa; font-size: 12px; margin-top: 10px; }}
-        .focus-tag {{ display: inline-block; padding: 2px 8px; background: #333; border-radius: 3px; margin-left: 10px; }}
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{ 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc; color: #1e293b; line-height: 1.6;
+        }}
+        .container {{ max-width: 1200px; margin: 0 auto; padding: 2rem; }}
+        .header {{ 
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white;
+            padding: 2rem; text-align: center; border-radius: 12px; margin-bottom: 2rem;
+        }}
+        .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }}
+        .card {{ 
+            background: white; border-radius: 12px; padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;
+        }}
+        .progress-bar {{ 
+            width: 100%; height: 20px; background: #e2e8f0; 
+            border-radius: 10px; overflow: hidden; margin: 1rem 0;
+        }}
+        .progress-fill {{ 
+            height: 100%; background: linear-gradient(90deg, #10b981, #059669); 
+            width: {progress_percentage}%; transition: width 0.3s ease;
+        }}
+        .milestone {{ 
+            background: white; border-radius: 8px; padding: 1rem; margin: 0.5rem 0;
+            border-left: 4px solid #e2e8f0; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }}
+        .milestone.completed {{ border-left-color: #10b981; background: #f0fdf4; }}
+        .milestone.in_progress {{ border-left-color: #f59e0b; background: #fffbeb; }}
+        .milestone.planned {{ border-left-color: #6b7280; background: #f9fafb; }}
+        .milestone-header {{ font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }}
+        .milestone-meta {{ color: #6b7280; font-size: 0.9rem; }}
+        .status-badge {{ 
+            display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; 
+            font-size: 0.8rem; font-weight: 500; margin-left: 0.5rem;
+        }}
+        .status-completed {{ background: #dcfce7; color: #166534; }}
+        .status-in_progress {{ background: #fef3c7; color: #92400e; }}
+        .status-planned {{ background: #f1f5f9; color: #475569; }}
+        .metric {{ display: flex; justify-content: space-between; padding: 0.5rem 0; }}
+        .sprint-info {{ background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }}
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 VIBECODER ROADMAP</h1>
-            <p>Visual Progress Tracking | Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M')}</p>
+            <h1>🎯 VIBECODER Roadmap</h1>
+            <p>Visual Progress Tracking | Updated: <span id="timestamp"></span></p>
         </div>
         
-        <div class="progress-section">
-            <h2>📊 Overall Progress: {progress_percentage:.1f}%</h2>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
+        <div class="sprint-info">
+            <h3>{self.sprint_icons.get(current_sprint, '📋')} Current Sprint: {current_sprint}</h3>
+            <p>Focused development phase with milestone-driven progress tracking</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>📊 Progress Overview</h3>
+                <div class="metric"><span>Overall Progress</span><span>{progress_percentage:.1f}%</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="metric"><span>Total Milestones</span><span>{total}</span></div>
             </div>
-            <p>{completed}/{total} milestones completed</p>
+            
+            <div class="card">
+                <h3>📈 Milestone Status</h3>
+                <div class="metric"><span>✅ Completed</span><span>{completed}</span></div>
+                <div class="metric"><span>🔄 In Progress</span><span>{in_progress}</span></div>
+                <div class="metric"><span>📋 Planned</span><span>{planned}</span></div>
+            </div>
         </div>
         
-        <div class="milestones-section">
-            <h2>🎯 Milestones</h2>"""
+        <div class="card" style="margin-top: 1.5rem;">
+            <h3>🎯 All Milestones</h3>"""
         
         # Sort milestones by ID
         sorted_milestones = sorted(milestones, key=lambda x: x.id)
         
         for milestone in sorted_milestones:
-            deps_text = f" (depends: {', '.join(milestone.dependencies)})" if milestone.dependencies else ""
+            deps_text = f" → depends on: {', '.join(milestone.dependencies)}" if milestone.dependencies else ""
+            status_class = f"status-{milestone.status}"
             
             html += f"""
             <div class="milestone {milestone.status}">
                 <div class="milestone-header">
-                    {milestone.progress_icon} {milestone.id}: {milestone.title}
-                    <span class="focus-tag">{milestone.focus}</span>
+                    {milestone.progress_icon} <strong>{milestone.id}</strong>: {milestone.title}
+                    <span class="status-badge {status_class}">{milestone.status.replace('_', ' ').title()}</span>
                 </div>
                 <div class="milestone-meta">
-                    Priority: {self.priority_icons.get(milestone.priority, '📌')} {milestone.priority.upper()}
+                    {self.priority_icons.get(milestone.priority, '📌')} Priority: {milestone.priority.upper()} | 
+                    {self.focus_colors.get(milestone.focus, '⚪')} Focus: {milestone.focus.replace('_', ' ').title()}
                     {deps_text}
                 </div>
             </div>"""
@@ -373,13 +423,14 @@ class VibecoderVisualRoadmap:
         html += """
         </div>
     </div>
+    <script>document.getElementById('timestamp').textContent = new Date().toLocaleString();</script>
 </body>
 </html>"""
         
         return html
     
     def save_roadmap_visualization(self, output_dir: Optional[str] = None) -> Dict[str, str]:
-        """Save all roadmap visualizations to files"""
+        """Save clean white HTML roadmap visualization"""
         if output_dir is None:
             output_dir = self.project_path / "docs"
         else:
@@ -389,21 +440,12 @@ class VibecoderVisualRoadmap:
         
         files_created = {}
         
-        # Save text visualizations
-        styles = ["timeline", "tree", "progress", "grid", "overview"]
-        for style in styles:
-            content = self.generate_visual_roadmap(style)
-            file_path = output_dir / f"roadmap_{style}.txt"
-            with open(file_path, 'w', encoding='utf-8') as f:
-                f.write(content)
-            files_created[style] = str(file_path)
-        
-        # Save HTML version
+        # Save only HTML version with clean white theme
         html_content = self.generate_roadmap_html()
         html_path = output_dir / "roadmap.html"
         with open(html_path, 'w', encoding='utf-8') as f:
             f.write(html_content)
-        files_created["html"] = str(html_path)
+        files_created["roadmap"] = str(html_path)
         
         return files_created
 

@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PROJECT_DIR := $(CURDIR)
 
-.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress visual-roadmap roadmap-save
+.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress visual-roadmap roadmap-save duplicate-check duplicate-report file-check file-suggest file-organize
 
 init:
 	@python main.py generate $(PROJECT_DIR)
@@ -73,6 +73,31 @@ visual-roadmap:
 
 roadmap-save:
 	@python -c "import sys; sys.path.insert(0, '.'); from src.agents.visual_roadmap import VibecoderVisualRoadmap; generator = VibecoderVisualRoadmap('.'); files = generator.save_roadmap_visualization(); print('📁 Roadmap visualizations saved:'); [print(f'  {style}: {path}') for style, path in files.items()]"
+
+# VIB-011: Git-aware Duplicate Detection
+duplicate-check:
+	@echo "🔍 Running VIB-011 duplicate detection..."
+	@python src/agents/duplicate_detection.py .
+
+duplicate-report:
+	@echo "📊 Generating VIB-011 duplicate report..."
+	@python src/agents/duplicate_detection.py .
+	@echo "Report saved to .goldminer/duplicate_detection/duplicate_report.json"
+
+# VIB-012: Intelligent File Placement
+file-check:
+	@echo "🗂️ Running VIB-012 file placement analysis..."
+	@python src/agents/file_placement.py . analyze
+
+file-suggest:
+	@echo "💡 Generating VIB-012 file placement suggestions..."
+	@python src/agents/file_placement.py . analyze
+	@echo "Suggestions saved to .goldminer/file_placement/placement_report.json"
+
+file-organize:
+	@echo "🚀 Running VIB-012 intelligent file organization..."
+	@python src/agents/file_placement.py . organize
+	@echo "Safe moves executed automatically, others need confirmation"
 
 rebuild: clean init generate validate lock sign audit backup
 	@echo "Rebuild complete."

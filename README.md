@@ -2,9 +2,23 @@
 
 **Secure document pipeline with integrity validation and audit capabilities for Vibecoder workflows**
 
-[![Status](https://img.shields.io/badge/status-operational-green)]()
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)]()
+[![Status](https://img.shields.io/badge/status-VIB--018%20Recovery%2090%25-yellow)]()
+[![Version](https://img.shields.io/badge/version-1.0.0--recovery-orange)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
+
+## 🚨 **VIB-018 RECOVERY STATUS**
+
+> **HTML Dashboard System Lost & 90% Recovered** - Critical UI components restored with exact original design
+
+### ✅ **RECOVERED** (VIB-018 A/B/C):
+- 🎨 **Dashboard**: Original purple/white theme with live data
+- 🧪 **Test Report**: Comprehensive validation with 15 agents + 15 targets  
+- 🗺️ **Visual Roadmap**: Interactive milestone tracking verified
+
+### ⏳ **PENDING** (VIB-018D):
+- **VIB-011**: Git-aware duplicate detection
+- **VIB-012**: Intelligent file placement
+- **VIB-013**: Dashboard UX improvements
 
 ## 🎯 Overview
 
@@ -32,12 +46,22 @@ make validate
 
 ## 🔧 Features
 
-- **🔒 Security**: Merkle tree integrity checking, GPG signing, audit trails
-- **📄 Documentation**: Auto-generated docs with validation
+### **🎨 HTML Dashboard System** (VIB-018 Recovered)
+- **📊 Real-time Dashboard**: Purple gradient theme with live project metrics
+- **🧪 Test Report**: Comprehensive validation of 15 agents + 15 Makefile targets
+- **🗺️ Visual Roadmap**: Interactive VIB milestone tracking and progress visualization
+
+### **🔒 Core Security & Integrity**
+- **🔐 Merkle Tree Validation**: SHA-256 cryptographic integrity checking
+- **📝 Audit Trails**: Immutable, append-only operation logging
+- **🛡️ GPG Signing**: Cryptographic document verification
 - **🛠️ Auto-healing**: Detect and fix issues automatically  
-- **📊 Monitoring**: Real-time integrity validation
-- **💾 Backup**: Compressed snapshots with restore capability
-- **🔄 CI/CD**: Git hooks for automated workflows
+
+### **📄 Documentation & Automation**
+- **📋 AI Handover**: CLAUDE.md with complete context preservation
+- **📚 Vibecoder Manual**: Complete workflow guide for AI agents
+- **💾 Backup System**: Compressed snapshots with restore capability
+- **🔄 Git Integration**: Pre-commit/post-merge hooks for automated workflows
 
 ## 📋 Makefile Commands
 

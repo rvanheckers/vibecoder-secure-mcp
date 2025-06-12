@@ -55,8 +55,8 @@ temp/
 .goldminer/backups/*.tar.gz
 .goldminer/backups/backup_index.json
 
-# Generated docs (can be regenerated)
-docs/
+# Specific generated docs to ignore (keep docs/ folder in repo)
+# docs/auto-generated/
 
 # Logs
 *.log

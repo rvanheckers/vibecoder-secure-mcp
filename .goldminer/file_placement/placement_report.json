@@ -1,0 +1,302 @@
+{
+  "timestamp": "2025-06-12T23:47:51.117085",
+  "total_files_analyzed": 59,
+  "misplaced_files": 31,
+  "suggestions": [
+    {
+      "current_path": ".dockerignore",
+      "suggested_path": ".goldminer/.dockerignore",
+      "confidence": 0.4,
+      "reason": "Configuration and metadata files (confidence: 40.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".env.example",
+      "suggested_path": ".goldminer/.env.example",
+      "confidence": 0.4,
+      "reason": "Configuration and metadata files (confidence: 40.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "audit.log",
+      "suggested_path": ".goldminer/audit.log",
+      "confidence": 0.4,
+      "reason": "Configuration and metadata files (confidence: 40.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "DATA_RECOVERY_ANALYSIS.md",
+      "suggested_path": "docs/DATA_RECOVERY_ANALYSIS.md",
+      "confidence": 0.9,
+      "reason": "HTML dashboard and visualization files (confidence: 90.0%)",
+      "category": "dashboard_html",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "deploy.sh",
+      "suggested_path": ".goldminer/deploy.sh",
+      "confidence": 0.4,
+      "reason": "Configuration and metadata files (confidence: 40.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "docker-compose.yml",
+      "suggested_path": ".goldminer/docker-compose.yml",
+      "confidence": 1.0,
+      "reason": "Configuration and metadata files (confidence: 100.0%)",
+      "category": "config",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "Dockerfile",
+      "suggested_path": ".goldminer/Dockerfile",
+      "confidence": 0.4,
+      "reason": "Configuration and metadata files (confidence: 40.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "production.yml",
+      "suggested_path": "docs/production.yml",
+      "confidence": 0.5,
+      "reason": "HTML dashboard and visualization files (confidence: 50.0%)",
+      "category": "dashboard_html",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "pyproject.toml",
+      "suggested_path": ".goldminer/pyproject.toml",
+      "confidence": 1.0,
+      "reason": "Configuration and metadata files (confidence: 100.0%)",
+      "category": "config",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "SYSTEM_INVENTORY.md",
+      "suggested_path": "src/agents/SYSTEM_INVENTORY.md",
+      "confidence": 0.4,
+      "reason": "Python agent implementations (confidence: 40.0%)",
+      "category": "agents",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "test-deployment.py",
+      "suggested_path": ".goldminer/test-deployment.py",
+      "confidence": 0.7,
+      "reason": "Configuration and metadata files (confidence: 70.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "test_comprehensive_suite.py",
+      "suggested_path": "docs/test_comprehensive_suite.py",
+      "confidence": 0.9,
+      "reason": "HTML dashboard and visualization files (confidence: 90.0%)",
+      "category": "dashboard_html",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "VIB-018_RECOVERY_ROADMAP.md",
+      "suggested_path": "docs/VIB-018_RECOVERY_ROADMAP.md",
+      "confidence": 0.9,
+      "reason": "HTML dashboard and visualization files (confidence: 90.0%)",
+      "category": "dashboard_html",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".goldminer/vibecoder_roadmap.json",
+      "suggested_path": "docs/vibecoder_roadmap.json",
+      "confidence": 0.5,
+      "reason": "HTML dashboard and visualization files (confidence: 50.0%)",
+      "category": "dashboard_html",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".goldminer/automation/automation_rules.json",
+      "suggested_path": ".goldminer/automation_rules.json",
+      "confidence": 1.0,
+      "reason": "Configuration and metadata files (confidence: 100.0%)",
+      "category": "config",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".goldminer/context_compression/compressed_chunks.json",
+      "suggested_path": "docs/compressed_chunks.json",
+      "confidence": 0.5,
+      "reason": "HTML dashboard and visualization files (confidence: 50.0%)",
+      "category": "dashboard_html",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".goldminer/context_compression/compression_rules.json",
+      "suggested_path": ".goldminer/compression_rules.json",
+      "confidence": 1.0,
+      "reason": "Configuration and metadata files (confidence: 100.0%)",
+      "category": "config",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".goldminer/context_compression/focus_tracker.json",
+      "suggested_path": "docs/focus_tracker.json",
+      "confidence": 0.5,
+      "reason": "HTML dashboard and visualization files (confidence: 50.0%)",
+      "category": "dashboard_html",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".goldminer/duplicate_detection/duplicate_report.json",
+      "suggested_path": ".goldminer/duplicate_report.json",
+      "confidence": 1.0,
+      "reason": "Configuration and metadata files (confidence: 100.0%)",
+      "category": "config",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".goldminer/enhanced_context/compressed_context.json",
+      "suggested_path": ".goldminer/compressed_context.json",
+      "confidence": 1.0,
+      "reason": "Configuration and metadata files (confidence: 100.0%)",
+      "category": "config",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": ".goldminer/metrics/health_metrics.json",
+      "suggested_path": "docs/health_metrics.json",
+      "confidence": 0.5,
+      "reason": "HTML dashboard and visualization files (confidence: 50.0%)",
+      "category": "dashboard_html",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "docs/roadmap.html",
+      "suggested_path": ".goldminer/roadmap.html",
+      "confidence": 0.7,
+      "reason": "Configuration and metadata files (confidence: 70.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "docs/SECURITY.md",
+      "suggested_path": ".goldminer/SECURITY.md",
+      "confidence": 0.4,
+      "reason": "Configuration and metadata files (confidence: 40.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "docs/manual/quick-reference.md",
+      "suggested_path": "docs/quick-reference.md",
+      "confidence": 0.5,
+      "reason": "HTML dashboard and visualization files (confidence: 50.0%)",
+      "category": "dashboard_html",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "src/__init__.py",
+      "suggested_path": ".goldminer/__init__.py",
+      "confidence": 0.7,
+      "reason": "Configuration and metadata files (confidence: 70.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "src/agents/backup.py",
+      "suggested_path": ".goldminer/backup.py",
+      "confidence": 0.7,
+      "reason": "Configuration and metadata files (confidence: 70.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "src/agents/context_compression.py",
+      "suggested_path": "docs/context_compression.py",
+      "confidence": 0.5,
+      "reason": "HTML dashboard and visualization files (confidence: 50.0%)",
+      "category": "dashboard_html",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "src/agents/monitoring.py",
+      "suggested_path": "docs/monitoring.py",
+      "confidence": 0.9,
+      "reason": "HTML dashboard and visualization files (confidence: 90.0%)",
+      "category": "dashboard_html",
+      "action_required": "safe_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "src/agents/smart_automation.py",
+      "suggested_path": ".goldminer/smart_automation.py",
+      "confidence": 0.7,
+      "reason": "Configuration and metadata files (confidence: 70.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "src/agents/vibecoder_roadmap.py",
+      "suggested_path": "docs/vibecoder_roadmap.py",
+      "confidence": 0.5,
+      "reason": "HTML dashboard and visualization files (confidence: 50.0%)",
+      "category": "dashboard_html",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    },
+    {
+      "current_path": "src/agents/__init__.py",
+      "suggested_path": ".goldminer/__init__.py",
+      "confidence": 0.7,
+      "reason": "Configuration and metadata files (confidence: 70.0%)",
+      "category": "config",
+      "action_required": "confirm_move",
+      "potential_conflicts": []
+    }
+  ],
+  "project_health_score": 0.7745762711864407,
+  "recommendations": [
+    "\ud83e\udd16 Move agent files to src/agents/ for proper organization",
+    "\ud83d\udcca Move HTML files to docs/ to maintain dashboard system structure",
+    "\u2699\ufe0f Organize config files according to their purpose and scope",
+    "\ud83d\udccb Maintain clean project structure for AI handover clarity",
+    "\ud83d\udd12 Ensure file organization doesn't break security or integrity",
+    "\ud83c\udfaf Follow Vibecoder-specific organization principles",
+    "\ud83d\udcbe Create backups before any bulk file moves"
+  ],
+  "vibecoder_compliance": {
+    "structure_score": 0.7745762711864407,
+    "misplaced_agents": 1,
+    "misplaced_docs": 12,
+    "protected_files_safe": true
+  }
+}
