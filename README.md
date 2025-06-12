@@ -87,9 +87,11 @@ This system is built specifically for **Vibecoder workflows** and includes:
 
 ## 📚 Documentation
 
-- [AI Handover Document](CLAUDE.md) - Complete project state for AI agents
-- [API Documentation](docs/API.md) - FastAPI endpoint details
-- [Security Model](docs/SECURITY.md) - Security implementation details
+- 🎯 **[VIBECODER MANUAL](VIBECODER-MANUAL.md)** - **START HERE!** Complete Vibecoder workflow guide
+- 📋 [AI Handover Document](CLAUDE.md) - Complete project state for AI agents  
+- ⚡ [Quick Reference](docs/manual/quick-reference.md) - Emergency commands & checklist
+- 📄 [API Documentation](docs/API.md) - FastAPI endpoint details
+- 🔒 [Security Model](docs/SECURITY.md) - Security implementation details
 
 ## 🆘 Support
 

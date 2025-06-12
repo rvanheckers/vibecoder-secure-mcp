@@ -6,7 +6,7 @@ VIBECODER-SECURE MCP - Audit Agent
 import os
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime
 import hashlib
 

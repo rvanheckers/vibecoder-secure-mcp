@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PROJECT_DIR := $(CURDIR)
 
-.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover
+.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus
 
 init:
 	@python main.py generate $(PROJECT_DIR)
@@ -38,6 +38,12 @@ backup:
 
 update-handover:
 	@python -c "from src.agents.handover_updater import update_handover_document; update_handover_document('$(PROJECT_DIR)')"
+
+roadmap:
+	@python -c "from src.agents.vibecoder_roadmap import get_current_vibecoder_focus; import json; print('🎯 Current Vibecoder Focus:'); print(json.dumps(get_current_vibecoder_focus('$(PROJECT_DIR)'), indent=2))"
+
+check-focus:
+	@python -c "from src.agents.vibecoder_roadmap import check_vibecoder_alignment; import json; import sys; work=input('Proposed work: '); result=check_vibecoder_alignment('$(PROJECT_DIR)', work); print(json.dumps(result, indent=2))"
 
 clean:
 	@rm -rf docs .goldminer goldminer.lock goldminer.toml ai-plugin.json src
