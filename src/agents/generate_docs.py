@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Document Generation Agent
+VIBECODER-SECURE MCP - Document Generation Agent (Core Documentation)
+Generates standardized API, Security, and project documentation from templates
+
+Dependencies:
+- auto_heal.py: Called during healing to regenerate missing docs
+- main.py: Triggered via /generate endpoint and make generate
+- handover_updater.py: Updates CLAUDE.md after documentation generation
+
+Generates:
+- docs/API.md: FastAPI endpoint documentation
+- docs/SECURITY.md: Security model and compliance documentation
+- Maintains root README.md (does not duplicate in docs/)
 """
 
 import os

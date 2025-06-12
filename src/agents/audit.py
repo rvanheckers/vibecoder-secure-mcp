@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Audit Agent
+VIBECODER-SECURE MCP - Audit Logging Agent (Core Security)
+Append-only audit trail for all VIBECODER operations with tamper detection
+
+Dependencies:
+- integrity.py: Uses compute_file_hash for audit log verification
+- All agents: Called by every agent for operation logging
+- main.py: FastAPI endpoints log events through this agent
+
+Outputs:
+- audit.log: Timestamped, checksummed operation records
+- Tamper detection alerts when audit log is modified
 """
 
 import os

@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Backup Agent
+VIBECODER-SECURE MCP - Backup & Restore Agent (Data Protection)
+Creates compressed snapshots and handles project restoration for disaster recovery
+
+Dependencies:
+- audit.py: Logs backup/restore operations
+- integrity.py: Verifies backup integrity using Merkle hashes
+
+Outputs:
+- .goldminer/backups/: Timestamped tar.gz snapshots
+- backup_manifest.json: Metadata for each backup
+- Restoration capabilities for complete project recovery
 """
 
 import os

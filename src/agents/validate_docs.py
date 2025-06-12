@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Document Validation Agent
+VIBECODER-SECURE MCP - Document Validation Agent (Quality Assurance)
+Validates document integrity, required files, and VIBECODER compliance standards
+
+Dependencies:
+- auto_heal.py: Uses validation results to identify healing targets
+- compliance.py: Called for comprehensive compliance validation
+- main.py: Primary validation endpoint for make validate
+
+Validates:
+- Required project files (Makefile, requirements.txt, configs)
+- Documentation completeness and file size checks
+- goldminer.lock integrity and Merkle root verification
+- VIBECODER project structure compliance
 """
 
 import os

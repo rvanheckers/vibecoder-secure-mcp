@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Auto Healing Agent
+VIBECODER-SECURE MCP - Auto Healing Agent (Self-Recovery)
+Automatically detects and fixes missing files, empty docs, and broken configurations
+
+Dependencies:
+- validate_docs.py: Uses validate() to identify issues
+- generate_docs.py: Uses generate() to recreate missing documentation
+- handover_updater.py: Updates CLAUDE.md after healing operations
+
+Heals:
+- Missing required files (Makefile, requirements.txt, etc.)
+- Empty documentation files
+- Broken .goldminer configuration
+- Missing docs directory structure
 """
 
 import os

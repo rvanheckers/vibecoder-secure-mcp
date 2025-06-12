@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Handover Document Auto-Updater
+VIBECODER-SECURE MCP - Handover Document Auto-Updater (AI Continuity)
+Automatically updates CLAUDE.md with current project state for seamless AI handover
+
+Dependencies:
+- All agents: Called after major operations to update project state
+- Git: Tracks commits and repository changes
+- monitoring.py: Incorporates health metrics and performance data
+
+Updates:
+- CLAUDE.md: Real-time project status, file counts, recent activity
+- Git commit tracking and recent changes
+- Health metrics and performance indicators
+- AI handover instructions and current priorities
 """
 
 import os

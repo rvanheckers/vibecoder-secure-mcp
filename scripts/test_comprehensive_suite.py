@@ -1,8 +1,25 @@
 #!/usr/bin/env python3
 """
-VIB-018C: Comprehensive Test Suite Recovery
-Rebuild comprehensive batch testing that was never committed to git
-Based on user's successful reports and VIB compliance requirements
+VIBECODER-SECURE MCP - Comprehensive Test Suite (VIB-018C Recovery)
+Complete system validation testing all 16 agents, 26 Makefile targets, and infrastructure
+
+Dependencies:
+- main.py: Tests CLI commands and validation endpoints
+- All src/agents/*: Validates each agent's functionality
+- Makefile: Tests all make targets for proper execution
+- docs/: Validates HTML dashboard system and documentation
+
+Tests 8 Categories:
+1. Foundation Phase (VIB-001 to VIB-004): Core infrastructure
+2. Monitoring & Dashboard (VIB-005): Real-time health tracking
+3. Visual Systems: HTML dashboard and roadmap generation
+4. File Integrity: Project structure and organization
+5. VIB Compliance: Milestone and numbering standards
+6. HTML Themes: Consistent purple/white styling
+7. Makefile Targets: All 26 targets functional
+8. Data Recovery: Cleanup validation and progress tracking
+
+Output: docs/test_results.html with detailed pass/fail reporting
 """
 
 import os

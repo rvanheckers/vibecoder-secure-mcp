@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
 """
-VIB-012: Intelligent File Placement System
-Smart file organization assistant for Vibecoder project structure
+VIBECODER-SECURE MCP - Intelligent File Placement System (VIB-012)
+Smart file organization assistant for VIBECODER project structure with automated suggestions
+
+Dependencies:
+- duplicate_detection.py: Works together for comprehensive file organization
+- smart_automation.py: Automated file placement rules and triggers
+- audit.py: Logs file placement suggestions and actions
+
+Analyzes:
+- File content patterns and purposes (agents, tests, configs, docs)
+- VIBECODER project structure compliance
+- Optimal placement recommendations with confidence scores
+- Potential conflicts and resolution strategies
 """
 
 import os

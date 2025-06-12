@@ -1,7 +1,22 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Deployment Validation Test
-Test all deployment configurations and files
+VIBECODER-SECURE MCP - Deployment Validation Test (Infrastructure Testing)
+Validates Docker, production configs, and deployment readiness for VIBECODER-SECURE MCP
+
+Dependencies:
+- Dockerfile: Tests Docker image build and configuration
+- docker-compose.yml: Validates service orchestration setup
+- production.yml: Tests production deployment configuration
+- requirements.txt: Validates dependency management
+
+Tests:
+- Docker image build and container functionality
+- Production configuration validation (ports, volumes, environment)
+- Service health checks and startup procedures
+- Dependency installation and version compatibility
+- Security configurations and file permissions
+
+Output: Console reporting of deployment readiness status
 """
 
 import os

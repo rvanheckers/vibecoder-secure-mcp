@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Compliance Agent
+VIBECODER-SECURE MCP - Compliance Validation Agent (Policy Enforcement)
+Validates project adherence to VIBECODER security and organizational standards
+
+Dependencies:
+- validate_docs.py: Core validation logic
+- audit.py: Logs compliance check results
+- .goldminer/config.yml: Compliance rules configuration
+
+Validates:
+- Security policy compliance (Merkle hashing enabled, etc.)
+- File organization standards (VIBECODER project structure)
+- Documentation completeness and format requirements
 """
 
 import os

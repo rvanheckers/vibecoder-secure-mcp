@@ -1,3 +1,15 @@
+# VIBECODER-SECURE MCP - Central Makefile (Operation Control)
+# Complete automation interface for all 26 VIBECODER operations
+#
+# Dependencies:
+# - main.py: All targets call python main.py commands
+# - venv/: Virtual environment activation required for Python operations
+# - src/agents/*: Agents called via main.py orchestration
+#
+# Usage: make <target>
+# Primary targets: generate, validate, heal, lock, dashboard, roadmap
+# See individual targets below for specific functionality
+
 SHELL := /bin/bash
 PROJECT_DIR := $(CURDIR)
 

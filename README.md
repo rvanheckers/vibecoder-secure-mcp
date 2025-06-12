@@ -1,3 +1,15 @@
+<!--
+VIBECODER-SECURE MCP - Project README (Public Documentation)
+Main project documentation for GitHub and external users
+
+Dependencies:
+- CLAUDE.md: Internal AI handover documentation (private)
+- VIBECODER-MANUAL.md: Complete workflow guide (private)
+- docs/: Generated API and security documentation
+
+Purpose: Public-facing project overview, installation, and usage instructions
+-->
+
 # VIBECODER-SECURE MCP
 
 **Secure document pipeline with integrity validation and audit capabilities for Vibecoder workflows**

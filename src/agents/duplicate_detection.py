@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
 """
-VIB-011: Git-aware Duplicate Detection System
-Detects duplicate content across git-tracked files with Vibecoder focus
+VIBECODER-SECURE MCP - Git-aware Duplicate Detection System (VIB-011)
+Detects duplicate content across git-tracked files with VIBECODER focus and smart deduplication
+
+Dependencies:
+- Git repository: Uses git ls-files for tracked file detection
+- file_placement.py: Suggests optimal locations for deduplicated files
+- audit.py: Logs duplicate detection and resolution events
+
+Detects:
+- Exact file content duplicates across repository
+- Partial content overlap with configurable similarity thresholds
+- Git-aware analysis (only scans tracked files)
+- VIBECODER-specific duplicate patterns and exceptions
 """
 
 import os

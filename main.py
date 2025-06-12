@@ -1,7 +1,28 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Main Orchestrator Hub
-FastAPI-based MCP server with secure endpoints
+VIBECODER-SECURE MCP - Main Orchestrator Hub (Central Control)
+FastAPI-based MCP server with secure endpoints for all VIBECODER operations
+
+Dependencies:
+- All src/agents/*: Imports and orchestrates all 16 agents
+- Makefile: CLI interface calls this via python main.py commands
+- venv/: Requires virtual environment activation for dependencies
+
+Endpoints:
+- POST /generate: Document generation via generate_docs.py
+- POST /validate: Project validation via validate_docs.py
+- POST /heal: Auto-healing via auto_heal.py
+- POST /lock: Integrity locking via integrity.py
+- POST /sign: GPG signing capabilities
+- GET /health: Health monitoring via monitoring.py
+
+CLI Commands:
+- python main.py server: Start FastAPI server
+- python main.py generate: Generate documentation
+- python main.py validate: Validate project integrity
+- python main.py heal: Auto-heal issues
+- python main.py lock: Update integrity locks
+- python main.py sign: GPG sign project
 """
 
 import os

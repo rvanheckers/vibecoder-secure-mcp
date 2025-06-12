@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Integrity Agent
+VIBECODER-SECURE MCP - Integrity Verification Agent (Cryptographic Security)
+Merkle tree-based integrity verification and tamper detection for project files
+
+Dependencies:
+- backup.py: Uses integrity hashes for backup verification
+- audit.py: Uses compute_file_hash for audit log integrity
+- compliance.py: Validates that Merkle hashing is enabled
+
+Provides:
+- SHA-256 Merkle tree computation for docs directory
+- goldminer.lock file generation and verification
+- Tamper detection and integrity validation
+- File-level and directory-level hash verification
 """
 
 import os
