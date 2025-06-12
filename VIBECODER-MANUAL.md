@@ -2,6 +2,9 @@
 
 **Voor Vibecoders & AI Agents** | **Version 1.0** | **Updated: 2025-06-12**
 
+> 🎉 **PROJECT STATUS: 100% COMPLETE!** - All 10 VIB milestones finished!  
+> Run `make visual-roadmap` for current status visualization.
+
 ---
 
 ## 📋 QUICK START (NIEUWE AI LEEST DIT EERST!)
@@ -88,6 +91,7 @@ vibecoder-secure-mcp/
 ### 🎯 Vibecoder-Specific Commands:
 ```bash
 make roadmap        # 📊 Show current Vibecoder focus & milestones
+make visual-roadmap # 🎨 Beautiful ASCII roadmap visualization  
 make check-focus    # 🎯 Test if proposed work is Vibecoder-aligned
 make update-handover # 📋 Update AI handover document
 ```
@@ -103,11 +107,22 @@ make audit         # 📊 Generate audit report
 make backup        # 💾 Create backup snapshot
 ```
 
+### 🔄 Advanced Commands:
+```bash
+make monitor       # 📊 Show real-time project health
+make dashboard     # 🎯 Create HTML monitoring dashboard
+make automation    # 🤖 Show smart automation status
+make autorun       # ⚡ Run smart automation rules
+make compress      # 🗜️ Show context compression summary
+make visual-roadmap # 🎨 ASCII roadmap visualization
+```
+
 ### 🔄 Workflow Commands:
 ```bash
-make init          # 🚀 Initialize new project
+make init          # 🚀 Initialize new project  
 make clean         # 🧹 Clean generated files
 make rebuild       # 🔄 Full rebuild cycle
+make server        # 🌐 Start FastAPI MCP server
 ```
 
 ---
