@@ -1,0 +1,10 @@
+[project]
+name = "VIBECODER-SECURE MCP"
+version = "1.0.0"
+
+[dependencies]
+secure-vibecoder-mcp = "latest"
+
+[security]
+enable_integrity_checks = true
+require_code_signing = true

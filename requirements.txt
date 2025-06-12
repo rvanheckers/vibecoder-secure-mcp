@@ -1,0 +1,11 @@
+vibecoder-secure-mcp
+fastapi
+uvicorn
+pyyaml
+cryptography
+mistune
+openai
+langchain
+redis
+gitpython
+python-gitlab

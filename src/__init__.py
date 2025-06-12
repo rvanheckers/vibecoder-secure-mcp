@@ -1,0 +1,1 @@
+# VIBECODER-SECURE MCP Source Package

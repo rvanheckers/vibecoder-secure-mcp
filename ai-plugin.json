@@ -1,0 +1,9 @@
+{
+  "schema_version":"v1",
+  "name_for_human":"VIBECODER-SECURE MCP",
+  "name_for_model":"vibecoder_secure_mcp",
+  "description_for_human":"Veilige docs-pipeline met integriteit & audit",
+  "description_for_model":"Gebruik alleen de endpoints generate, validate, heal, lock en sign; raak niets anders aan.",
+  "auth":{"type":"none"},
+  "api":{"url":"https://your-domain.com/openapi.json"}
+}

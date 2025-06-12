@@ -1,0 +1,9 @@
+# VIBECODER-SECURE MCP Lock File
+# Auto-generated - do not edit manually
+version = "1.0.0"
+lockfile_version = 1
+created = "2025-06-12T00:00:00Z"
+
+[integrity]
+merkle_root = ""
+last_validated = ""

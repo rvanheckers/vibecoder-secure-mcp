@@ -1,0 +1,16 @@
+project:
+  name: "VIBECODER-SECURE MCP"
+  version: "1.0.0"
+  
+security:
+  enable_merkle_hashing: true
+  require_signatures: true
+  audit_logging: true
+  
+backup:
+  auto_snapshot: true
+  retention_days: 30
+  
+compliance:
+  strict_validation: true
+  human_approval_required: true
