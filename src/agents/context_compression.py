@@ -1,7 +1,21 @@
 #!/usr/bin/env python3
 """
 VIBECODER-SECURE MCP - Smart Context Compression (VIB-010)
-Prevent AI from losing focus on long conversations through intelligent context compression
+Intelligent context compression to prevent AI focus loss during long VIBECODER conversations
+
+Dependencies:
+- enhanced_context.py: Provides compressed context for enhanced AI handover
+- .goldminer/context_compression/: Storage for compressed conversation data
+- main.py: Called via make compress command for manual compression
+- vibecoder_roadmap.py: Maintains milestone focus during compression
+
+Compression Features:
+- Intelligent conversation summarization with key decision preservation
+- VIBECODER-specific context prioritization (VIB milestones, critical decisions)
+- Entropy-based importance scoring for conversation elements
+- Decision tree extraction from long conversation chains
+- Focus preservation during context window management
+- Lossless compression of critical project decisions and state changes
 """
 
 import json

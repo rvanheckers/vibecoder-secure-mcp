@@ -1,7 +1,22 @@
 #!/usr/bin/env python3
 """
 VIBECODER-SECURE MCP - Smart Automation System (VIB-007)
-Vibecoder-specific automation: auto-commit triggers, smart healing, proactive checks
+VIBECODER-specific automation with intelligent triggers, smart healing, and proactive monitoring
+
+Dependencies:
+- file_placement.py: Uses placement rules for automated file organization
+- auto_heal.py: Triggers healing based on automation rules
+- audit.py: Logs automation events and rule executions
+- Git hooks: Integrates with pre-commit and post-merge automation
+
+Automation Rules (47 total):
+- Auto-commit documentation changes
+- Proactive integrity validation (every 30 minutes)
+- Smart healing on validation failure
+- Auto-backup critical changes
+- File placement suggestions
+- Context-aware responses based on VIBECODER workflows
+- Time-based maintenance tasks
 """
 
 import os

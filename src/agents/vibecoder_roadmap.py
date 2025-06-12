@@ -1,7 +1,20 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Vibecoder Roadmap & Milestone Tracker
-Keeps AI agents focused on Vibecoder-specific goals and prevents derailing
+VIBECODER-SECURE MCP - VIBECODER Roadmap & Milestone Tracker (VIB-004)
+Keeps AI agents focused on VIBECODER-specific goals and prevents project derailing
+
+Dependencies:
+- .goldminer/vibecoder_roadmap.json: Milestone data storage
+- visual_roadmap.py: Provides data for visualization generation
+- handover_updater.py: Updates current focus in CLAUDE.md
+- main.py: Called via make roadmap and make check-focus commands
+
+Manages:
+- VIB milestone tracking (VIB-001 through VIB-013+)
+- Current sprint and active milestone identification
+- AI focus enforcement and derailing prevention
+- Context warnings and VIBECODER-specific reminders
+- Milestone dependency validation and completion tracking
 """
 
 import json

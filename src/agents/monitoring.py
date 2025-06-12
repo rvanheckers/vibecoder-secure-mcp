@@ -1,7 +1,21 @@
 #!/usr/bin/env python3
 """
-VIBECODER-SECURE MCP - Real-time Monitoring System (VIB-005 Prep)
-Real-time project health dashboard for Vibecoder workflows
+VIBECODER-SECURE MCP - Real-time Monitoring System (VIB-005)
+Real-time project health dashboard and performance monitoring for VIBECODER workflows
+
+Dependencies:
+- psutil: System performance metrics (CPU, memory, disk usage)
+- handover_updater.py: Provides monitoring data for CLAUDE.md updates
+- main.py: Called via /health endpoint and make monitor command
+- docs/dashboard.html: Integrates health data into HTML dashboard
+
+Monitors:
+- Project health status and integrity alerts
+- System performance metrics (CPU, memory, disk)
+- File count tracking and project size monitoring
+- Git repository status and recent activity
+- Failed validation alerts and recovery recommendations
+- Real-time health scoring and trend analysis
 """
 
 import json

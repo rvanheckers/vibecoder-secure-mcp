@@ -1,7 +1,21 @@
 #!/usr/bin/env python3
 """
 VIBECODER-SECURE MCP - Enhanced AI Context Preservation (VIB-006)
-Advanced AI handover with decision trees, conversation snapshots, and context compression
+Advanced AI handover system with decision trees, conversation snapshots, and context management
+
+Dependencies:
+- context_compression.py: Uses compression algorithms for context optimization
+- handover_updater.py: Integrates context snapshots into CLAUDE.md updates
+- .goldminer/enhanced_context/: Storage for context snapshots and decision trees
+- vibecoder_roadmap.py: Maintains focus context for milestone continuity
+
+Provides:
+- AI conversation context preservation across sessions
+- Decision tree snapshots for complex multi-step operations
+- Context compression to prevent AI focus loss
+- Conversation continuity for seamless handovers
+- Enhanced context injection for new AI assistants
+- Priority-based context management for VIBECODER workflows
 """
 
 import json

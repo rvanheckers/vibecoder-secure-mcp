@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
 """
 VIBECODER-SECURE MCP - Visual Roadmap Generator (VIB-009)
-ASCII art roadmap visualization for Vibecoders to see progress and plan features visually
+ASCII art roadmap visualization for VIBECODER workflows to track progress and plan features
+
+Dependencies:
+- vibecoder_roadmap.py: Uses milestone data for visualization generation
+- main.py: Called via make visual-roadmap command
+- docs/roadmap.html: Generates HTML roadmap output
+
+Generates:
+- ASCII art roadmaps showing VIB milestone progress
+- Visual progress indicators for completed/in-progress/planned features
+- Timeline visualization for VIBECODER development phases
+- Integration with HTML dashboard system for web display
 """
 
 import json
