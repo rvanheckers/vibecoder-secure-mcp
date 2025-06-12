@@ -392,4 +392,22 @@ open docs/dashboard.html docs/test_report.html docs/roadmap.html
 
 ---
 
+## 🔑 **GITHUB AUTHENTICATION** (CRITICAL!)
+
+**Personal Access Token (Classic)**: `ghp_[REDACTED - CHECK USER NOTES]`  
+**Repository**: https://github.com/rvanheckers/vibecoder-secure-mcp.git
+
+### 🚨 For Git Authentication Issues:
+```bash
+# Set remote with PAT (if push fails)
+git remote set-url origin https://[PAT]@github.com/rvanheckers/vibecoder-secure-mcp.git
+
+# Then push normally
+git push origin main
+```
+
+**⚠️ CRITICAL**: This PAT was lost during crash - get from user for each session!
+
+---
+
 *Built with ❤️ for Vibecoder workflows | Keep it secure, keep it focused!*
