@@ -19,8 +19,7 @@ def generate(project_path: str) -> None:
     docs_dir = Path(project_path) / "docs"
     docs_dir.mkdir(exist_ok=True)
     
-    # Generate main documentation
-    _generate_readme(docs_dir)
+    # Generate main documentation (README.md stays in root, not docs)
     _generate_api_docs(docs_dir)
     _generate_security_docs(docs_dir)
     

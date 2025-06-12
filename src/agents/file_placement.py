@@ -125,11 +125,17 @@ class VibecoderFilePlacement:
                 'description': 'VIB milestone-related files'
             },
             
-            # Test files
-            'tests': {
-                'pattern': r'.*(test|spec).*\.py$',
-                'target_dir': 'tests/',
-                'description': 'Test and specification files'
+            # Test and script files
+            'scripts': {
+                'pattern': r'.*(test|script|deploy).*\.py$',
+                'content_patterns': [
+                    r'test.*suite',
+                    r'deployment.*test',
+                    r'comprehensive.*test',
+                    r'if __name__ == "__main__"'
+                ],
+                'target_dir': 'scripts/',
+                'description': 'Test scripts and deployment scripts'
             },
             
             # Backup and temporary files

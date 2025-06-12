@@ -553,18 +553,18 @@ class VibecoderComprehensiveTestSuite:
         """Test data recovery validation"""
         tests = {}
         
-        # Test VIB-018 recovery status
+        # Test VIB-018 recovery completion (files should be cleaned up)
         recovery_file = self.project_path / "VIB-018_RECOVERY_ROADMAP.md"
-        tests["recovery_roadmap"] = {
-            "status": "pass" if recovery_file.exists() else "fail",
-            "message": f"VIB-018 recovery roadmap {'exists' if recovery_file.exists() else 'missing'}"
+        tests["recovery_cleanup"] = {
+            "status": "pass" if not recovery_file.exists() else "fail",
+            "message": f"VIB-018 recovery files {'properly cleaned up' if not recovery_file.exists() else 'still present (should be removed)'}"
         }
         
-        # Test current functionality vs user's requirements
+        # Test system cleanup (inventory should be removed post-recovery)
         inventory_file = self.project_path / "SYSTEM_INVENTORY.md"
-        tests["system_inventory"] = {
-            "status": "pass" if inventory_file.exists() else "fail",
-            "message": f"System inventory {'exists' if inventory_file.exists() else 'missing'}"
+        tests["inventory_cleanup"] = {
+            "status": "pass" if not inventory_file.exists() else "fail",
+            "message": f"System inventory {'properly cleaned up' if not inventory_file.exists() else 'still present (should be removed)'}"
         }
         
         # Test dashboard data integration

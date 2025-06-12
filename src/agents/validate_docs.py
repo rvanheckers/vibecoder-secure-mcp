@@ -66,14 +66,22 @@ def _validate_integrity(project_dir: Path) -> List[str]:
         errors.append("Missing docs directory")
         return errors
     
-    # Check for expected documentation files
-    expected_docs = ["README.md", "API.md", "SECURITY.md"]
+    # Check for expected documentation files (README.md should be in root, not docs)
+    expected_docs = ["API.md", "SECURITY.md"]
     for doc in expected_docs:
         doc_path = docs_dir / doc
         if not doc_path.exists():
             errors.append(f"Missing documentation file: {doc}")
         elif doc_path.stat().st_size == 0:
             errors.append(f"Empty documentation file: {doc}")
+    
+    # Check that README.md is in root, not in docs (to avoid duplication)
+    docs_readme = docs_dir / "README.md"
+    root_readme = project_dir / "README.md"
+    if docs_readme.exists():
+        errors.append("README.md should be in root directory, not docs/ (prevents duplication)")
+    if not root_readme.exists():
+        errors.append("Missing README.md in root directory")
     
     return errors
 
