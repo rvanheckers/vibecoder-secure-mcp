@@ -14,7 +14,7 @@ generate:
 	@python -c "from src.agents.handover_updater import update_handover_document; update_handover_document('$(PROJECT_DIR)')"
 
 validate:
-	@python main.py validate $(PROJECT_DIR)
+	@source venv/bin/activate && python main.py validate "$(PROJECT_DIR)"
 
 heal:
 	@python main.py heal $(PROJECT_DIR)
