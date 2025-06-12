@@ -1,11 +1,13 @@
-vibecoder-secure-mcp
+# Core dependencies for VIBECODER-SECURE MCP
 fastapi
 uvicorn
 pyyaml
-cryptography
-mistune
-openai
-langchain
-redis
 gitpython
-python-gitlab
+
+# Optional dependencies (install as needed)
+# cryptography
+# mistune  
+# openai
+# langchain
+# redis
+# python-gitlab
