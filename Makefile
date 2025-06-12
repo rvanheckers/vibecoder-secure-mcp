@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 PROJECT_DIR := $(CURDIR)
 
-.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus
+.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress
 
 init:
 	@python main.py generate $(PROJECT_DIR)
@@ -47,6 +47,26 @@ check-focus:
 
 clean:
 	@rm -rf docs .goldminer goldminer.lock goldminer.toml ai-plugin.json src
+
+monitor:
+	@python src/agents/monitoring.py $(PROJECT_DIR)
+
+dashboard:
+	@python src/agents/monitoring.py $(PROJECT_DIR) dashboard
+	@echo "Dashboard created at docs/dashboard.html"
+
+server:
+	@python main.py server --host 0.0.0.0 --port 8000
+
+automation:
+	@python -c "from src.agents.smart_automation import VibecoderSmartAutomation; import json; automation = VibecoderSmartAutomation('.'); print(json.dumps(automation.get_automation_status(), indent=2))"
+
+autorun:
+	@python -c "from src.agents.smart_automation import run_smart_automation; import json; print(json.dumps(run_smart_automation('.'), indent=2))"
+	@echo "Smart automation completed"
+
+compress:
+	@python -c "from src.agents.context_compression import VibecoderContextCompressor; import json; compressor = VibecoderContextCompressor('.'); print(json.dumps(compressor.get_compressed_context_summary(), indent=2))"
 
 rebuild: clean init generate validate lock sign audit backup
 	@echo "Rebuild complete."

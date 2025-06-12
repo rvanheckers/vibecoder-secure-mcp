@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-06-12T15:44:47.214180",
+  "session_summary": "No previous session data available",
+  "recent_decisions": [],
+  "conversation_flow": [
+    "No conversation history available"
+  ],
+  "next_priorities": [
+    "Check current roadmap with 'make roadmap'"
+  ],
+  "vibecoder_alignment_status": {
+    "status": "unknown",
+    "aligned_decisions": 0,
+    "total_decisions": 0
+  },
+  "context_compression": {
+    "dominant_topics": [],
+    "primary_focus_areas": [],
+    "total_conversations": 0,
+    "total_decisions": 0
+  }
+}

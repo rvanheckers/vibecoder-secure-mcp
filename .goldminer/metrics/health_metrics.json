@@ -1,0 +1,94 @@
+[
+  {
+    "timestamp": "2025-06-12T15:46:14.124624",
+    "project_health": {
+      "status": "warning",
+      "checks": {
+        "required_files": {
+          "status": true,
+          "missing_files": [],
+          "total_required": 5
+        },
+        "git_repository": {
+          "status": true,
+          "clean": false,
+          "message": "Uncommitted changes present"
+        },
+        "documentation": {
+          "status": true,
+          "docs_directory": true,
+          "manual_files": true,
+          "total_docs": 10
+        },
+        "dependencies": {
+          "status": false,
+          "message": "Core dependencies missing"
+        }
+      },
+      "failed_checks": [
+        "dependencies"
+      ]
+    },
+    "vibecoder_focus": {
+      "error": "Could not load focus: attempted relative import with no known parent package"
+    },
+    "integrity_status": {
+      "status": "unknown",
+      "error": "attempted relative import with no known parent package"
+    },
+    "recent_activity": {
+      "last_commit": {
+        "hash": "78c3a3ba",
+        "message": "MAJOR: A-B-C Implementation Complete",
+        "date": "2025-06-12 15:23:47 +0200"
+      },
+      "recent_file_changes": [
+        "audit.log",
+        "CLAUDE.md",
+        "requirements.txt",
+        ".git/COMMIT_EDITMSG",
+        ".git/config",
+        ".git/index",
+        ".goldminer/vibecoder_roadmap.json",
+        ".git/logs/HEAD",
+        ".git/logs/refs/heads/main",
+        ".git/logs/refs/remotes/origin/main"
+      ],
+      "audit_events": [
+        {
+          "type": "VALIDATE",
+          "operation": "document_validation",
+          "timestamp": "2025-06-12T14:38:28.015853"
+        },
+        {
+          "type": "VALIDATE",
+          "operation": "document_validation",
+          "timestamp": "2025-06-12T14:41:15.056868"
+        },
+        {
+          "type": "ROADMAP",
+          "operation": "milestone_updated",
+          "timestamp": "2025-06-12T15:10:22.558740"
+        },
+        {
+          "type": "ROADMAP",
+          "operation": "milestone_added",
+          "timestamp": "2025-06-12T15:16:17.281379"
+        },
+        {
+          "type": "ROADMAP",
+          "operation": "milestone_added",
+          "timestamp": "2025-06-12T15:16:17.294749"
+        }
+      ]
+    },
+    "performance_metrics": {
+      "cpu_percent": 0,
+      "memory_percent": 0,
+      "disk_usage": 0,
+      "file_count": 3780,
+      "project_size_mb": 106.72
+    },
+    "alerts": []
+  }
+]

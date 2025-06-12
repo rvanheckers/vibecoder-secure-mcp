@@ -5,8 +5,12 @@ Real-time project health dashboard for Vibecoder workflows
 """
 
 import json
-import psutil
 import time
+try:
+    import psutil
+    HAS_PSUTIL = True
+except ImportError:
+    HAS_PSUTIL = False
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
@@ -75,7 +79,10 @@ class VibecoderMonitor:
     def _get_current_focus(self) -> Dict[str, Any]:
         """Get current Vibecoder focus from roadmap"""
         try:
-            from .vibecoder_roadmap import get_current_vibecoder_focus
+            import sys
+            from pathlib import Path
+            sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+            from src.agents.vibecoder_roadmap import get_current_vibecoder_focus
             return get_current_vibecoder_focus(str(self.project_path))
         except Exception as e:
             return {"error": f"Could not load focus: {str(e)}"}
@@ -83,7 +90,10 @@ class VibecoderMonitor:
     def _check_integrity(self) -> Dict[str, Any]:
         """Check project integrity"""
         try:
-            from .integrity import verify_integrity
+            import sys
+            from pathlib import Path
+            sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+            from src.agents.integrity import verify_integrity
             is_valid, issues = verify_integrity(str(self.project_path))
             return {
                 "status": "valid" if is_valid else "invalid",
@@ -106,13 +116,22 @@ class VibecoderMonitor:
     def _get_performance_metrics(self) -> Dict[str, Any]:
         """Get system performance metrics"""
         try:
-            metrics = {
-                "cpu_percent": psutil.cpu_percent(interval=1),
-                "memory_percent": psutil.virtual_memory().percent,
-                "disk_usage": psutil.disk_usage(str(self.project_path)).percent,
-                "file_count": len(list(self.project_path.rglob("*"))),
-                "project_size_mb": self._get_project_size()
-            }
+            if HAS_PSUTIL:
+                metrics = {
+                    "cpu_percent": psutil.cpu_percent(interval=1),
+                    "memory_percent": psutil.virtual_memory().percent,
+                    "disk_usage": psutil.disk_usage(str(self.project_path)).percent,
+                    "file_count": len(list(self.project_path.rglob("*"))),
+                    "project_size_mb": self._get_project_size()
+                }
+            else:
+                metrics = {
+                    "cpu_percent": 0,
+                    "memory_percent": 0,
+                    "disk_usage": 0,
+                    "file_count": len(list(self.project_path.rglob("*"))),
+                    "project_size_mb": self._get_project_size()
+                }
         except Exception:
             metrics = {
                 "cpu_percent": 0,

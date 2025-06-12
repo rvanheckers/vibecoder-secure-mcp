@@ -1,0 +1,79 @@
+[
+  {
+    "area": "core_pipeline",
+    "keywords": [
+      "pipeline",
+      "generate",
+      "validate",
+      "heal"
+    ],
+    "importance": 0.9,
+    "recent_activity": 0
+  },
+  {
+    "area": "security_integrity",
+    "keywords": [
+      "security",
+      "integrity",
+      "audit",
+      "lock"
+    ],
+    "importance": 0.9,
+    "recent_activity": 0
+  },
+  {
+    "area": "ai_handover",
+    "keywords": [
+      "handover",
+      "context",
+      "ai",
+      "preservation"
+    ],
+    "importance": 0.95,
+    "recent_activity": 0
+  },
+  {
+    "area": "workflow_automation",
+    "keywords": [
+      "automation",
+      "smart",
+      "trigger",
+      "auto"
+    ],
+    "importance": 0.8,
+    "recent_activity": 0
+  },
+  {
+    "area": "monitoring_observability",
+    "keywords": [
+      "monitor",
+      "dashboard",
+      "health",
+      "alerts"
+    ],
+    "importance": 0.7,
+    "recent_activity": 0
+  },
+  {
+    "area": "milestone_tracking",
+    "keywords": [
+      "VIB-",
+      "milestone",
+      "roadmap",
+      "completed"
+    ],
+    "importance": 0.85,
+    "recent_activity": 0
+  },
+  {
+    "area": "developer_experience",
+    "keywords": [
+      "make",
+      "command",
+      "usage",
+      "workflow"
+    ],
+    "importance": 0.6,
+    "recent_activity": 0
+  }
+]

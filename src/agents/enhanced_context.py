@@ -121,7 +121,8 @@ class EnhancedContextManager:
             "conversation_flow": self._get_conversation_flow(),
             "next_priorities": self._extract_next_priorities(),
             "vibecoder_alignment_status": self._check_vibecoder_alignment(),
-            "context_compression": self._compress_context()
+            "context_compression": self._compress_context(),
+            "smart_compression_summary": self._get_smart_compression_summary()
         }
         
         # Save compressed context
@@ -283,6 +284,15 @@ class EnhancedContextManager:
         
         aligned_count = sum(1 for d in decisions if d.get('vibecoder_alignment', False))
         return round((aligned_count / len(decisions)) * 100, 1)
+    
+    def _get_smart_compression_summary(self) -> Dict[str, Any]:
+        """Get smart compression summary from VIB-010 system"""
+        try:
+            from .context_compression import VibecoderContextCompressor
+            compressor = VibecoderContextCompressor(str(self.project_path))
+            return compressor.get_compressed_context_summary(max_chunks=5)
+        except Exception as e:
+            return {"error": f"Could not get compression summary: {str(e)}"}
 
 
 # Integration with existing handover system

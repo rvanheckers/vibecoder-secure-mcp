@@ -1,0 +1,52 @@
+[
+  {
+    "id": "auto_commit_docs",
+    "name": "Auto-commit Documentation Changes",
+    "trigger": "file_change",
+    "condition": "docs/*.md OR *.md files modified",
+    "action": "git_commit_with_message",
+    "vibecoder_focus": "workflow_automation",
+    "enabled": true,
+    "last_triggered": null
+  },
+  {
+    "id": "proactive_integrity_check",
+    "name": "Proactive Integrity Validation",
+    "trigger": "time_based",
+    "condition": "every_30_minutes",
+    "action": "validate_and_heal",
+    "vibecoder_focus": "security_integrity",
+    "enabled": true,
+    "last_triggered": "2025-06-12T15:58:37.645713"
+  },
+  {
+    "id": "auto_backup_critical_changes",
+    "name": "Auto-backup Critical Changes",
+    "trigger": "git_event",
+    "condition": "commits to critical files",
+    "action": "create_snapshot",
+    "vibecoder_focus": "backup_recovery",
+    "enabled": true,
+    "last_triggered": null
+  },
+  {
+    "id": "smart_healing_validation_failure",
+    "name": "Smart Healing on Validation Failure",
+    "trigger": "validation_failure",
+    "condition": "validation errors detected",
+    "action": "auto_heal_and_regenerate",
+    "vibecoder_focus": "workflow_automation",
+    "enabled": true,
+    "last_triggered": null
+  },
+  {
+    "id": "ai_handover_update",
+    "name": "Auto-update AI Handover Documents",
+    "trigger": "file_change",
+    "condition": "any significant project changes",
+    "action": "update_handover_context",
+    "vibecoder_focus": "ai_handover",
+    "enabled": true,
+    "last_triggered": "2025-06-12T15:59:19.398000"
+  }
+]

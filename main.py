@@ -26,6 +26,9 @@ from agents.audit import (
     log_lock_event, log_sign_event
 )
 from agents.backup import snapshot
+from agents.monitoring import VibecoderMonitor, create_dashboard_html
+from agents.smart_automation import VibecoderSmartAutomation, run_smart_automation
+from agents.context_compression import VibecoderContextCompressor, compress_conversation_for_handover
 
 
 # FastAPI app
@@ -62,6 +65,21 @@ class LockRequest(ProjectPathRequest):
 
 class SignRequest(ProjectPathRequest):
     key: Optional[str] = None
+
+
+class CompressRequest(BaseModel):
+    project_path: str
+    conversation_text: str
+    topic: Optional[str] = None
+    vibecoder_focus: Optional[str] = None
+    
+    @validator('project_path')
+    def validate_project_path(cls, v):
+        """Validate that project_path is within allowed boundaries"""
+        path = Path(v).resolve()
+        if ".." in str(path) or not path.exists():
+            raise ValueError("Invalid or non-existent project path")
+        return str(path)
 
 
 class OperationResponse(BaseModel):
@@ -200,6 +218,117 @@ async def sign_project(request: SignRequest):
         raise HTTPException(status_code=500, detail=f"Signing failed: {str(e)}")
 
 
+@app.post("/monitor", response_model=OperationResponse)
+async def monitor_project(request: ProjectPathRequest):
+    """Get real-time monitoring status"""
+    try:
+        monitor = VibecoderMonitor(request.project_path)
+        status = monitor.get_real_time_status()
+        
+        return OperationResponse(
+            success=True,
+            message="Monitoring data retrieved successfully",
+            data=status
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Monitoring failed: {str(e)}")
+
+
+@app.post("/dashboard")
+async def create_monitoring_dashboard(request: ProjectPathRequest):
+    """Create HTML monitoring dashboard"""
+    try:
+        html_content = create_dashboard_html(request.project_path)
+        
+        # Save dashboard
+        dashboard_path = Path(request.project_path) / "docs" / "dashboard.html"
+        dashboard_path.parent.mkdir(exist_ok=True)
+        
+        with open(dashboard_path, 'w') as f:
+            f.write(html_content)
+        
+        return OperationResponse(
+            success=True,
+            message=f"Dashboard created successfully at {dashboard_path}",
+            data={"dashboard_path": str(dashboard_path)}
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Dashboard creation failed: {str(e)}")
+
+
+@app.post("/automation", response_model=OperationResponse)
+async def get_automation_status(request: ProjectPathRequest):
+    """Get automation system status"""
+    try:
+        automation = VibecoderSmartAutomation(request.project_path)
+        status = automation.get_automation_status()
+        
+        return OperationResponse(
+            success=True,
+            message="Automation status retrieved successfully",
+            data=status
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Automation status failed: {str(e)}")
+
+
+@app.post("/automation/run", response_model=OperationResponse)
+async def run_automation(request: ProjectPathRequest):
+    """Run smart automation checks and actions"""
+    try:
+        result = run_smart_automation(request.project_path)
+        
+        return OperationResponse(
+            success=True,
+            message=f"Automation completed: {len(result['triggered_rules'])} rules triggered",
+            data=result
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Automation run failed: {str(e)}")
+
+
+@app.post("/compress", response_model=OperationResponse)
+async def compress_conversation(request: CompressRequest):
+    """Compress conversation context for AI handover"""
+    try:
+        result = compress_conversation_for_handover(
+            request.project_path,
+            request.conversation_text,
+            request.topic or "",
+            request.vibecoder_focus or ""
+        )
+        
+        return OperationResponse(
+            success=True,
+            message=f"Conversation compressed with ratio {result['compression_ratio']:.2f}",
+            data=result
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Compression failed: {str(e)}")
+
+
+@app.post("/compress/summary", response_model=OperationResponse)
+async def get_compression_summary(request: ProjectPathRequest):
+    """Get compression system summary"""
+    try:
+        compressor = VibecoderContextCompressor(request.project_path)
+        summary = compressor.get_compressed_context_summary()
+        
+        return OperationResponse(
+            success=True,
+            message="Compression summary retrieved successfully",
+            data=summary
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Compression summary failed: {str(e)}")
+
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
@@ -219,6 +348,12 @@ async def root():
             "/heal",
             "/lock",
             "/sign",
+            "/monitor",
+            "/dashboard", 
+            "/automation",
+            "/automation/run",
+            "/compress",
+            "/compress/summary",
             "/health",
             "/openapi.json"
         ]

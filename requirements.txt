@@ -3,6 +3,7 @@ fastapi
 uvicorn
 pyyaml
 gitpython
+psutil
 
 # Optional dependencies (install as needed)
 # cryptography
