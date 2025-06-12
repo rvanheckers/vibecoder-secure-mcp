@@ -1,0 +1,54 @@
+# VIBECODER-SECURE MCP - Docker Compose Configuration
+version: '3.8'
+
+services:
+  vibecoder-mcp:
+    build: .
+    container_name: vibecoder-secure-mcp
+    ports:
+      - "8000:8000"
+    environment:
+      - VIBECODER_ENV=production
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Persist project data
+      - vibecoder_data:/app/.goldminer
+      - vibecoder_docs:/app/docs
+      - vibecoder_logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vibecoder.rule=Host(`vibecoder.local`)"
+      - "traefik.http.services.vibecoder.loadbalancer.server.port=8000"
+
+  # Optional: Redis for caching (if needed in future)
+  redis:
+    image: redis:7-alpine
+    container_name: vibecoder-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    profiles:
+      - cache
+
+volumes:
+  vibecoder_data:
+    driver: local
+  vibecoder_docs:
+    driver: local
+  vibecoder_logs:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  default:
+    name: vibecoder-network

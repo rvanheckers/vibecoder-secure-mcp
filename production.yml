@@ -1,0 +1,135 @@
+# VIBECODER-SECURE MCP - Production Configuration
+# Production-ready Docker Compose configuration
+
+version: '3.8'
+
+services:
+  vibecoder-mcp:
+    image: ghcr.io/vibecoder/vibecoder-secure-mcp:latest
+    container_name: vibecoder-secure-mcp-prod
+    ports:
+      - "8000:8000"
+    environment:
+      - VIBECODER_ENV=production
+      - PYTHONUNBUFFERED=1
+      - HOST=0.0.0.0
+      - PORT=8000
+      - LOG_LEVEL=INFO
+      - METRICS_ENABLED=true
+      - AUTO_BACKUP_ENABLED=true
+    volumes:
+      # Persistent data volumes
+      - vibecoder_prod_data:/app/.goldminer
+      - vibecoder_prod_docs:/app/docs
+      - vibecoder_prod_logs:/app/logs
+      # Optional: Mount external config
+      # - ./config/production.env:/app/.env:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      # Traefik labels for reverse proxy (optional)
+      - "traefik.enable=true"
+      - "traefik.http.routers.vibecoder-prod.rule=Host(`vibecoder.yourdomain.com`)"
+      - "traefik.http.routers.vibecoder-prod.tls=true"
+      - "traefik.http.routers.vibecoder-prod.tls.certresolver=letsencrypt"
+      - "traefik.http.services.vibecoder-prod.loadbalancer.server.port=8000"
+    networks:
+      - vibecoder-prod
+
+  # Optional: Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    container_name: vibecoder-redis-prod
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-changeme}
+    volumes:
+      - redis_prod_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - vibecoder-prod
+
+  # Optional: Monitoring with Prometheus metrics
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: vibecoder-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - vibecoder-prod
+    profiles:
+      - monitoring
+
+  # Optional: Grafana for dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: vibecoder-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    restart: unless-stopped
+    networks:
+      - vibecoder-prod
+    profiles:
+      - monitoring
+
+volumes:
+  vibecoder_prod_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/vibecoder/data
+  vibecoder_prod_docs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/vibecoder/docs
+  vibecoder_prod_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/vibecoder/logs
+  redis_prod_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  vibecoder-prod:
+    driver: bridge
+    name: vibecoder-prod-network
+
+# Secrets (use Docker secrets in production)
+secrets:
+  redis_password:
+    external: true
+  grafana_password:
+    external: true

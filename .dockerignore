@@ -1,0 +1,66 @@
+# VIBECODER-SECURE MCP - Docker ignore patterns
+
+# Git and version control
+.git
+.gitignore
+.gitattributes
+
+# Development files
+.vscode/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.coverage
+.tox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Environment and config
+.env
+.env.local
+.env.production
+.env.staging
+venv/
+env/
+ENV/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+logs/
+tmp/
+
+# Documentation build
+docs/_build/
+site/
+
+# IDE files
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Local development
+docker-compose.override.yml
+.local/

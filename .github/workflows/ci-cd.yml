@@ -1,0 +1,197 @@
+# VIBECODER-SECURE MCP - CI/CD Pipeline
+name: 🎯 Vibecoder CI/CD Pipeline
+
+'on':
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  validate:
+    name: 🔍 Validate & Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+        
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: 🔍 Validate project integrity
+      run: |
+        python main.py validate . --fast
+        
+    - name: 🧹 Auto-heal any issues
+      run: |
+        python main.py heal .
+        
+    - name: ✅ Generate documentation
+      run: |
+        python main.py generate .
+        
+    - name: 📊 Run monitoring checks
+      run: |
+        python -c "from src.agents.monitoring import VibecoderMonitor; monitor = VibecoderMonitor('.'); status = monitor.get_real_time_status(); print('Health:', status['project_health']['status'])"
+        
+    - name: 🎯 Check Vibecoder roadmap
+      run: |
+        python -c "from src.agents.vibecoder_roadmap import get_current_vibecoder_focus; focus = get_current_vibecoder_focus('.'); print('Sprint:', focus['current_sprint'])"
+        
+    - name: 📋 Visual roadmap generation
+      run: |
+        python -c "from src.agents.visual_roadmap import generate_visual_roadmap; print(generate_visual_roadmap('.', 'progress'))"
+
+  build:
+    name: 🐳 Build & Push Container
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐳 Setup Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: 🔐 Login to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: 🏷️ Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix=sha-
+          type=raw,value=latest,enable={{is_default_branch}}
+          
+    - name: 🔨 Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  deploy:
+    name: 🚀 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔧 Create deployment config
+      run: |
+        cat > deploy-config.yml << EOF
+        version: '3.8'
+        services:
+          vibecoder-mcp:
+            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            container_name: vibecoder-secure-mcp-prod
+            ports:
+              - "8000:8000"
+            environment:
+              - VIBECODER_ENV=production
+              - PYTHONUNBUFFERED=1
+            volumes:
+              - vibecoder_prod_data:/app/.goldminer
+              - vibecoder_prod_docs:/app/docs
+              - vibecoder_prod_logs:/app/logs
+            restart: unless-stopped
+            healthcheck:
+              test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+              interval: 30s
+              timeout: 10s
+              retries: 3
+              start_period: 40s
+        volumes:
+          vibecoder_prod_data:
+          vibecoder_prod_docs:
+          vibecoder_prod_logs:
+        EOF
+        
+    - name: 📤 Upload deployment config
+      uses: actions/upload-artifact@v3
+      with:
+        name: deployment-config
+        path: deploy-config.yml
+        
+    - name: ✅ Deployment ready
+      run: |
+        echo "🎯 VIBECODER-SECURE MCP ready for deployment!"
+        echo "📊 Container image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+        echo "🚀 Use deploy-config.yml for production deployment"
+
+  security-scan:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    needs: validate
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔍 Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: 📤 Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  notification:
+    name: 📢 Deployment Notification
+    runs-on: ubuntu-latest
+    needs: [validate, build, deploy, security-scan]
+    if: always()
+    
+    steps:
+    - name: 🎯 Vibecoder Deployment Status
+      run: |
+        echo "🎯 VIBECODER-SECURE MCP CI/CD Pipeline Complete!"
+        echo "✅ Validation: ${{ needs.validate.result }}"
+        echo "🐳 Build: ${{ needs.build.result }}"
+        echo "🚀 Deploy: ${{ needs.deploy.result }}"
+        echo "🔒 Security: ${{ needs.security-scan.result }}"
+        echo ""
+        echo "📊 Ready for production use!"
+        echo "🎯 All Vibecoder milestones operational"
