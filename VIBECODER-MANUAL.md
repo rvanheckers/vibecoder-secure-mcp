@@ -1,11 +1,12 @@
 # 🎯 VIBECODER-SECURE MCP MANUAL
 
-**Voor Vibecoders & AI Agents** | **Version 1.0** | **Updated: 2025-06-12**
+**Voor Vibecoders & AI Agents** | **Version 2.0** | **Updated: 2025-06-13**
 
-> 🚨 **PROJECT STATUS: VIB-018 RECOVERY IN PROGRESS** - HTML dashboard system lost, being restored!  
-> ✅ **VIB-018A COMPLETED**: Original dashboard design recovered  
-> 🔄 **NEXT**: test_report.html and roadmap.html restoration  
-> Run `make roadmap` to see current recovery status.
+> ✅ **PROJECT STATUS: FULLY OPERATIONAL** - All systems restored and enhanced!  
+> ✅ **VIB-018 RECOVERY COMPLETE**: HTML dashboard system 100% recovered  
+> 🎯 **VIB-015 ACTIVE**: Smart milestone workflow automation implemented  
+> 🚀 **17 AGENTS + 33 MAKEFILE TARGETS**: Unbreakable system validated  
+> Run `make work TASK="description"` to start smart workflow.
 
 ---
 
@@ -14,10 +15,10 @@
 ### 🚨 VOOR ELKE NIEUWE AI SESSIE:
 
 1. **STOP en lees `CLAUDE.md`** - Complete project context
-2. **Run `make roadmap`** - Zie huidige Vibecoder focus  
+2. **Run `make check-focus`** - Check milestone discipline status  
 3. **Check Git status** - `git status && git log --oneline -5`
 4. **Begrijp de scope** - Dit is ALLEEN voor Vibecoder workflows
-5. **Volg de principes** - Geen generic features!
+5. **Use smart workflow** - `make work TASK="description"` voor alle tasks
 
 ### ⚡ CONTEXT IN 30 SECONDEN:
 
@@ -25,15 +26,29 @@
 # Waar ben ik?
 pwd  # Should be: /mnt/c/Vibecoder Secure MCP
 
-# Wat is de status?
-make roadmap
+# Wat is mijn focus?
+make check-focus
 
 # Wat was de laatste activiteit?
 git log --oneline -3
 
-# Wat is er gaande?
-cat CLAUDE.md | head -20
+# Start nieuwe task (PREFERRED METHOD):
+make work TASK="your task description"
 ```
+
+### 🎯 **VIB-015 SMART WORKFLOW (ACTIVE!):**
+
+**SINGLE COMMAND FOR EVERYTHING:**
+```bash
+make work TASK="implement user authentication"
+```
+
+**This automatically:**
+- ✅ Checks milestone discipline (single active milestone rule)
+- ✅ Validates task alignment (≥70% threshold)
+- ✅ Provides clear guidance (proceed/refocus/wait)
+- ✅ Prevents ad-hoc work (enforces VIB focus)
+- ✅ Maintains Vibecoder workflow discipline
 
 ---
 
@@ -75,7 +90,7 @@ vibecoder-secure-mcp/
 └── 📁 .git/                 # Git hooks for protection
 ```
 
-### 🤖 UNBREAKABLE AGENT ECOSYSTEM (16+ Agents):
+### 🤖 UNBREAKABLE AGENT ECOSYSTEM (17 Agents):
 
 **🔒 Core Security & Integrity:**
 - `integrity.py` → Cryptographic Merkle tree verification
@@ -95,6 +110,7 @@ vibecoder-secure-mcp/
 - `smart_automation.py` → Context-aware automation (VIB-005)
 - `monitoring.py` → Real-time health tracking
 - `vib_enforcement.py` → Vibecoder principle enforcement
+- `milestone_enforcer.py` → VIB-015 milestone discipline enforcement
 
 **🔍 Advanced Analysis:**
 - `duplicate_detection.py` → Git-aware duplicate scanning (VIB-011)
@@ -125,7 +141,7 @@ make audit         # 📊 Generate audit report
 make backup        # 💾 Create backup snapshot
 ```
 
-### 🔄 UNBREAKABLE SYSTEM Commands (26 Total):
+### 🔄 UNBREAKABLE SYSTEM Commands (33+ Total):
 ```bash
 # 🔒 Cryptographic Integrity
 make lock          # 🔒 Merkle tree integrity locking
@@ -162,14 +178,29 @@ make init          # 🚀 Initialize new project
 make clean         # 🧹 Clean generated files
 make rebuild       # 🔄 Full rebuild cycle
 make server        # 🌐 Start FastAPI MCP server
+
+# VIB-015: Smart Milestone Workflow
+make work TASK="description"     # 🎯 Smart workflow with discipline check
+make help-workflow               # 📖 Complete workflow guide
+make enforce-discipline WORK="..." # ⚖️ Test task alignment
+make milestone-start VIB=VIB-XXX # 🚀 Start new milestone
 ```
 
 ---
 
 ## 🎯 VIBECODER WORKFLOW
 
-### 🚀 Starting New Work:
+### 🚀 Starting New Work (VIB-015 SMART WORKFLOW):
 ```bash
+# NEW PREFERRED METHOD - Single command does everything:
+make work TASK="your work description"
+# This automatically:
+# - Checks milestone discipline
+# - Validates task alignment  
+# - Provides clear guidance
+# - Prevents ad-hoc work
+
+# ALTERNATIVE (Manual steps):
 # 1. Check current focus
 make roadmap
 
@@ -280,24 +311,98 @@ pip install -r requirements.txt
 
 ---
 
+## 🎯 VIB-015 MILESTONE DISCIPLINE SYSTEM
+
+### 🚨 CRITICAL: Milestone Discipline Enforcement
+
+VIB-015 implements **automatic milestone discipline** to prevent ad-hoc work and maintain focus:
+
+#### ⚖️ **Discipline Rules:**
+- ✅ **Single Active Milestone**: Only one VIB milestone can be "in_progress" at a time
+- ✅ **70% Alignment Threshold**: All work must score ≥70% alignment with active milestone
+- ✅ **No Ad-hoc Work**: All tasks must relate to a specific VIB milestone
+- ✅ **Logical Order**: Milestones must be completed in dependency order
+
+#### 🎯 **Smart Workflow Commands:**
+
+```bash
+# MAIN COMMAND - Use this for ALL work:
+make work TASK="your task description"
+# ↳ Automatically checks discipline + alignment + provides guidance
+
+# Supporting commands:
+make check-focus                    # Check current discipline status
+make enforce-discipline WORK="..."  # Test specific task alignment
+make milestone-start VIB=VIB-XXX    # Start new milestone (if ready)
+make help-workflow                  # Complete workflow guide
+```
+
+#### 📊 **Alignment Scoring:**
+
+The system scores task alignment based on:
+- **Milestone Keywords**: Match with active milestone description
+- **Vibecoder Focus**: Alignment with Vibecoder principles
+- **Dependencies**: Logical connection to current work
+- **Scope Relevance**: Direct contribution to milestone goals
+
+**Example:**
+```bash
+make work TASK="implement user authentication"
+# If active milestone is VIB-006 (AI Context Preservation)
+# ❌ Score: 15% - Not aligned, would be rejected
+
+make work TASK="add decision tree snapshots to context system"
+# If active milestone is VIB-006 (AI Context Preservation)  
+# ✅ Score: 85% - Aligned, would be approved
+```
+
+#### 🔄 **Workflow Process:**
+
+1. **Check Current State**: `make work TASK="..."`
+2. **Discipline Validation**: System checks single milestone rule
+3. **Alignment Scoring**: Task scored against active milestone
+4. **Decision & Guidance**: 
+   - ✅ **≥70%**: "Proceed with implementation"
+   - ⚠️ **50-69%**: "Consider refocusing task"
+   - ❌ **<50%**: "Complete current milestone first"
+
+#### 📋 **Current VIB Status** (as of 2025-06-13):
+
+- **Active**: VIB-015 (Integrated Milestone Workflow & Documentation)
+- **Next**: VIB-005 (Real-time Monitoring), VIB-007 (Smart Automation)
+- **Completed**: VIB-001 through VIB-006, VIB-011 through VIB-014
+
+---
+
 ## 📊 MILESTONES & ROADMAP
 
-### 🎯 Current Phase: **Foundation**
-- ✅ Core pipeline implementation  
-- ✅ Security & integrity framework
-- ✅ AI handover system
-- ✅ GitHub integration
-- 🔄 Vibecoder roadmap system
+### 🎯 Current Phase: **Enhancement** (VIB-015 ACTIVE)
+- ✅ **Foundation Complete**: VIB-001 to VIB-004 (Core pipeline, AI handover, GitHub, roadmap)
+- ✅ **Advanced Features**: VIB-006 (Enhanced context), VIB-011 (Duplicate detection), VIB-012 (File placement), VIB-013 (Dashboard UX), VIB-014 (Documentation)
+- 🔄 **VIB-015 IN PROGRESS**: Smart milestone workflow automation
+- 📊 **Next**: VIB-005 (Real-time monitoring), VIB-007 (Smart automation), VIB-008 (Production deployment)
 
-### 🔮 Next Phase: **Enhancement** 
+### 🔮 Next Phase: **Production** 
 - 📊 Real-time monitoring for Vibecoder workflows
-- 🤖 Advanced AI context preservation
+- 🤖 Advanced AI context preservation enhancements
 - 🔄 Vibecoder-specific automation
-- 📈 Workflow optimization
+- 📈 CI/CD pipeline and production deployment
 
 ### 📋 Milestone Commands:
 ```bash
-make roadmap               # See current milestones
+# VIB-015 Smart Workflow (RECOMMENDED):
+make work TASK="your task"         # Complete workflow automation
+make help-workflow                 # Full workflow guide
+
+# Individual milestone commands:
+make roadmap                       # See current milestones
+make check-focus                   # Check milestone discipline
+make milestone-start VIB=VIB-XXX   # Start new milestone
+make enforce-discipline WORK="..." # Test task alignment
+make context-snapshot              # Create AI context snapshot
+make record-decision CONTEXT="..." CHOSEN="..." REASONING="..." # Record critical decisions
+
+# Legacy command (for reference):
 python -c "from src.agents.vibecoder_roadmap import VibecoderRoadmapManager; m=VibecoderRoadmapManager('.'); print('Focus areas:', m.VIBECODER_FOCUS_AREAS)"
 ```
 
@@ -318,24 +423,29 @@ python -c "from src.agents.vibecoder_roadmap import VibecoderRoadmapManager; m=V
 
 #### ✅ DO:
 1. **Read this manual FIRST** before any work
-2. **Check `make roadmap`** for current focus
-3. **Use Makefile targets** - never call sub-agents directly
-4. **Update context** with `make update-handover` after changes
-5. **Commit frequently** with descriptive messages
-6. **Stay Vibecoder-focused** - check alignment with `make check-focus`
+2. **Use `make work TASK="description"`** - Single command for all work (VIB-015)
+3. **Check `make roadmap`** for current focus if needed
+4. **Use Makefile targets** - never call sub-agents directly
+5. **Update context** with `make update-handover` after changes
+6. **Commit frequently** with descriptive messages
+7. **Stay Vibecoder-focused** - alignment checked automatically
 
 #### ❌ DON'T:
 1. Create generic features without Vibecoder alignment
 2. Modify security files directly (`goldminer.lock`, `audit.log`)
-3. Skip roadmap/milestone checking
+3. Skip milestone discipline checking (use `make work` instead)
 4. Forget to update AI handover context
 5. Work outside the defined Vibecoder scope
+6. Start multiple milestones simultaneously
+7. Ignore alignment scores below 70%
 
 #### 🎯 Always Ask:
 - "Does this serve Vibecoder workflows specifically?"
 - "How does this improve security/integrity?"
 - "Will this help AI handover continuity?"
 - "Is this aligned with current milestones?"
+- "Does my alignment score meet the 70% threshold?"
+- "Am I following single-milestone discipline?"
 
 ---
 
@@ -348,7 +458,7 @@ This manual ensures **EVERY** interaction with VIBECODER-SECURE MCP:
 - ✅ Follows proper workflow procedures
 - ✅ Contributes to milestone progress
 
-**REMEMBER**: When in doubt, `make roadmap` and check `CLAUDE.md`!
+**REMEMBER**: When in doubt, use `make work TASK="description"` for guided workflow, or check `make roadmap` and `CLAUDE.md`!
 
 ---
 
@@ -410,4 +520,59 @@ git push origin main
 
 ---
 
-*Built with ❤️ for Vibecoder workflows | Keep it secure, keep it focused!*
+*Built with ❤️ for Vibecoder workflows | VIB-015 Smart Workflow Complete!*
+
+---
+
+## 📈 **VIB-015 COMPLETION STATUS**
+
+### ✅ **COMPLETED DELIVERABLES:**
+
+1. **🤖 Milestone Enforcer Agent** (`src/agents/milestone_enforcer.py`)
+   - Single milestone discipline enforcement
+   - 70% alignment threshold validation  
+   - Automatic task scoring and guidance
+   - Integration with vibecoder_roadmap.py
+
+2. **🎯 Smart Workflow Commands** (Makefile targets)
+   - `make work TASK="description"` - Complete automated workflow
+   - `make help-workflow` - Complete workflow guidance
+   - `make enforce-discipline WORK="..."` - Task alignment testing
+   - `make milestone-start VIB=VIB-XXX` - Milestone progression
+   - `make check-focus` - Discipline status checking
+
+3. **📋 Complete Documentation Update** (This manual)
+   - VIB-015 milestone discipline system documentation
+   - Smart workflow command reference
+   - Alignment scoring explanation
+   - Updated agent ecosystem (17 agents)
+   - Complete 33+ Makefile targets reference
+   - Enhanced AI agent instructions
+
+4. **🔄 Integration & Testing**
+   - Virtual environment activation in Makefile
+   - Cross-agent integration (milestone_enforcer ↔ vibecoder_roadmap)
+   - Discipline rule enforcement
+   - Alignment threshold validation
+
+### 🎯 **VIB-015 SUCCESS METRICS:**
+
+- ✅ **Single Command Workflow**: `make work TASK="..."`eliminates manual command complexity
+- ✅ **Discipline Enforcement**: 70% threshold prevents ad-hoc work derailment
+- ✅ **Complete Documentation**: VIBECODER-MANUAL.md as golden truth source
+- ✅ **AI Handover Enhancement**: Smart workflow reduces onboarding complexity
+- ✅ **User Feedback Addressed**: "Too many manual commands" → single `make work` command
+
+### 🚀 **READY FOR PRODUCTION:**
+
+VIB-015 delivers a complete milestone discipline system that:
+- Prevents AI workflow derailment through automatic enforcement
+- Simplifies complex workflows into single commands
+- Maintains Vibecoder focus through alignment scoring
+- Provides comprehensive documentation for seamless handovers
+
+**Result**: Project now has **unbreakable milestone discipline** with **effortless workflow automation**.
+
+---
+
+*VIB-015 COMPLETE: Smart Milestone Workflow System - Ready for Next Enhancement Phase*
