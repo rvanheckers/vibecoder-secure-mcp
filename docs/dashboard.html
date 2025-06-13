@@ -92,9 +92,10 @@
         .metric-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             padding: 12px 0;
             border-bottom: 1px solid #f1f5f9;
+            gap: 15px;
         }
         
         .metric-row:last-child {
@@ -104,10 +105,16 @@
         .metric-label {
             color: #64748b;
             font-weight: 500;
+            min-width: 80px;
+            flex-shrink: 0;
         }
         
         .metric-value {
             font-weight: 600;
+            text-align: right;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.4;
         }
         
         .status-pass {
@@ -289,7 +296,7 @@
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Dependencies</span>
-                    <span class="status-invalid">MISSING ❌</span>
+                    <span class="status-pass">OK ✅</span>
                 </div>
             </div>
             
@@ -308,12 +315,12 @@
                     <span class="status-warning">HIGH - Due 2025-06-15</span>
                 </div>
                 <div class="vib-item">
-                    <span class="vib-id">VIB-006</span>
-                    <span class="status-critical">CRITICAL - Due 2025-06-14</span>
+                    <span class="vib-id">VIB-015</span>
+                    <span class="status-pass">COMPLETED ✅</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Completed</span>
-                    <span class="status-pass">VIB-001 to VIB-004 ✅</span>
+                    <span class="status-pass">VIB-001 to VIB-015 ✅</span>
                 </div>
             </div>
             
@@ -325,15 +332,15 @@
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Status</span>
-                    <span class="status-invalid">INVALID ❌</span>
+                    <span class="status-pass">VALID ✅</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Issue</span>
-                    <span class="metric-value">No Merkle root in lock file</span>
+                    <span class="metric-value">All checks passed</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Last Check</span>
-                    <span class="metric-value" id="lastCheck">2025-06-12 20:28</span>
+                    <span class="metric-value" id="lastCheck">2025-06-13 03:09</span>
                 </div>
             </div>
             
@@ -345,11 +352,11 @@
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Files</span>
-                    <span class="metric-value" id="fileCount">3924 files</span>
+                    <span class="metric-value" id="fileCount">4218 files</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Size</span>
-                    <span class="metric-value">106.91 MB</span>
+                    <span class="metric-value">109.71 MB</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Memory</span>
@@ -357,7 +364,7 @@
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Last Commit</span>
-                    <span class="metric-value">f568bce</span>
+                    <span class="metric-value">f969672</span>
                 </div>
             </div>
             
@@ -367,13 +374,9 @@
                     <span class="icon">🚨</span>
                     Active Alerts
                 </div>
-                <div class="alert-item">
-                    <div class="alert-level">Critical</div>
-                    <div class="alert-message">Integrity validation failed</div>
-                </div>
                 <div class="metric-row">
                     <span class="metric-label">Action</span>
-                    <span class="metric-value">Run: make lock</span>
+                    <span class="metric-value">Run: make validate</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Dependencies</span>
@@ -389,15 +392,15 @@
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Last Commit</span>
-                    <span class="metric-value">Update VIBECODER-MANUAL.md</span>
+                    <span class="metric-value">COMPLETE: VIB-015 Smart Milestone Workflow</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Files Changed</span>
-                    <span class="metric-value">10 files in last hour</span>
+                    <span class="metric-value">4 files in last hour</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Audit Events</span>
-                    <span class="metric-value">Recent milestone updates</span>
+                    <span class="metric-value">VIB-015 completion milestone updates</span>
                 </div>
             </div>
         </div>
@@ -414,20 +417,20 @@
                     <div class="phase-title">Phase A</div>
                     <div class="phase-subtitle">Dashboard Complete</div>
                 </div>
-                <div class="phase in-progress">
-                    <div class="phase-icon">⏳</div>
+                <div class="phase completed">
+                    <div class="phase-icon">✅</div>
                     <div class="phase-title">Phase B</div>
                     <div class="phase-subtitle">Visual Roadmap</div>
                 </div>
-                <div class="phase">
-                    <div class="phase-icon">⏳</div>
+                <div class="phase completed">
+                    <div class="phase-icon">✅</div>
                     <div class="phase-title">Phase C</div>
                     <div class="phase-subtitle">Test Scripts</div>
                 </div>
-                <div class="phase">
-                    <div class="phase-icon">⏳</div>
+                <div class="phase completed">
+                    <div class="phase-icon">✅</div>
                     <div class="phase-title">Phase D</div>
-                    <div class="phase-subtitle">File Organization</div>
+                    <div class="phase-subtitle">VIB-015 Complete</div>
                 </div>
             </div>
         </div>
@@ -459,7 +462,7 @@
         // Update file count (simulated real-time)
         function updateFileCount() {
             // This would normally fetch from monitoring API
-            const baseCount = 3924;
+            const baseCount = 4218;
             const variance = Math.floor(Math.random() * 10) - 5; // -5 to +5 variation
             document.getElementById('fileCount').textContent = `${baseCount + variance} files`;
         }

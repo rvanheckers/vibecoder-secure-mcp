@@ -64,7 +64,7 @@ monitor:
 	@python src/agents/monitoring.py $(PROJECT_DIR)
 
 dashboard:
-	@python src/agents/monitoring.py $(PROJECT_DIR) dashboard
+	@cd "$(PROJECT_DIR)" && source venv/bin/activate && python src/agents/monitoring.py . dashboard
 	@echo "Dashboard created at docs/dashboard.html"
 
 server:

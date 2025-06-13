@@ -5,5 +5,5 @@ lockfile_version = 1
 created = "2025-06-12T00:00:00Z"
 
 [integrity]
-merkle_root = ""
-last_validated = ""
+merkle_root = "de947265aa3099d71fbf6e6dd3014775b8e4e44da203ca3a2c306662b33d4c80"
+last_validated = "2025-06-13T03:41:24.360998"
