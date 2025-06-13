@@ -99,6 +99,40 @@ class VibecoderRoadmapManager:
             "vibecoder_focus": milestone.vibecoder_focus
         })
     
+    def start_milestone(self, milestone_id: str) -> None:
+        """Start a planned milestone (change status to in_progress)"""
+        roadmap = self.load_roadmap()
+        
+        if milestone_id not in roadmap["milestones"]:
+            raise ValueError(f"Milestone {milestone_id} not found")
+        
+        milestone = roadmap["milestones"][milestone_id]
+        
+        # Check if milestone can be started (dependencies completed)
+        for dep_id in milestone.get("dependencies", []):
+            if dep_id in roadmap["milestones"]:
+                dep_status = roadmap["milestones"][dep_id]["status"]
+                if dep_status != "completed":
+                    raise ValueError(f"Cannot start {milestone_id}: dependency {dep_id} not completed")
+        
+        # Set other milestones to planned (only one active at a time)
+        for mid, ms in roadmap["milestones"].items():
+            if ms["status"] == "in_progress":
+                ms["status"] = "planned"
+        
+        # Start this milestone
+        milestone["status"] = "in_progress"
+        milestone["assigned_ai"] = "Claude Code"
+        
+        self.save_roadmap(roadmap)
+        
+        # Log milestone start
+        self._log_roadmap_event("milestone_started", {
+            "milestone_id": milestone_id,
+            "title": milestone["title"],
+            "vibecoder_focus": milestone["vibecoder_focus"]
+        })
+
     def update_milestone_status(self, milestone_id: str, status: str, notes: str = "") -> None:
         """Update milestone status with context preservation"""
         roadmap = self.load_roadmap()

@@ -24,7 +24,7 @@ Purpose: Public-facing project overview, installation, and usage instructions
 
 ### ✅ **RECOVERED** (VIB-018 A/B/C):
 - 🎨 **Dashboard**: Original purple/white theme with live data
-- 🧪 **Test Report**: Comprehensive validation with 16 agents + 26 Makefile targets  
+- 🧪 **Test Report**: Comprehensive validation with 17 agents + 29 Makefile targets  
 - 🗺️ **Visual Roadmap**: Interactive milestone tracking verified
 
 ### ⏳ **PENDING** (VIB-018D):
@@ -60,7 +60,7 @@ make validate
 
 ### **🎨 HTML Dashboard System** (VIB-018 Recovered)
 - **📊 Real-time Dashboard**: Purple gradient theme with live project metrics
-- **🧪 Test Report**: Comprehensive validation of 16 agents + 26 Makefile targets
+- **🧪 Test Report**: Comprehensive validation of 17 agents + 29 Makefile targets
 - **🗺️ Visual Roadmap**: Interactive VIB milestone tracking and progress visualization
 
 ### **🔒 Core Security & Integrity**
@@ -91,11 +91,11 @@ make validate
 
 ## 🏗️ Architecture
 
-**UNBREAKABLE SYSTEM**: 16 agents, 26 Makefile targets
+**UNBREAKABLE SYSTEM**: 17 agents, 29 Makefile targets
 
 ```
 ├── main.py                 # FastAPI MCP hub orchestrator
-├── src/agents/            # 16 UNBREAKABLE AGENTS
+├── src/agents/            # 17 UNBREAKABLE AGENTS
 │   ├── generate_docs.py     # Documentation generation
 │   ├── validate_docs.py     # Integrity validation
 │   ├── auto_heal.py         # Auto-healing & recovery
@@ -108,7 +108,7 @@ make validate
 │   ├── duplicate_detection.py # Git-aware duplicate detection
 │   ├── file_placement.py    # Intelligent file organization
 │   ├── visual_roadmap.py    # Interactive roadmap generation
-│   └── ... and 4 more agents
+│   └── ... and 5 more agents
 ├── docs/                  # Generated documentation & HTML dashboards
 ├── .goldminer/           # Configuration, metrics & JSON logic
 └── CLAUDE.md             # AI handover document (auto-updated)

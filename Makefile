@@ -13,7 +13,7 @@
 SHELL := /bin/bash
 PROJECT_DIR := $(CURDIR)
 
-.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress visual-roadmap roadmap-save duplicate-check duplicate-report file-check file-suggest file-organize enforce-discipline milestone-start
+.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress visual-roadmap roadmap-save duplicate-check duplicate-report file-check file-suggest file-organize enforce-discipline milestone-start context-snapshot record-decision work help-workflow
 
 init:
 	@python main.py generate $(PROJECT_DIR)
@@ -134,3 +134,63 @@ milestone-start:
 		exit 1; \
 	fi
 	@source venv/bin/activate && python -c "import sys; sys.path.insert(0, 'src'); from agents.vibecoder_roadmap import VibecoderRoadmapManager; roadmap = VibecoderRoadmapManager('.'); roadmap.start_milestone('$(VIB)'); print('Milestone $(VIB) started')"
+
+# VIB-006: Enhanced AI Context Preservation
+context-snapshot:
+	@echo "📸 Creating AI context snapshot for handover..."
+	@source venv/bin/activate && python -c "import sys; sys.path.insert(0, 'src'); from agents.enhanced_context import EnhancedContextManager; manager = EnhancedContextManager('.'); context = manager.generate_handover_context(); print('✅ Enhanced context snapshot created'); print(f'📊 Recent decisions: {len(context.get(\"recent_decisions\", []))}'); print(f'🎯 Vibecoder alignment: {context.get(\"vibecoder_alignment_status\", {}).get(\"status\", \"unknown\")}')"
+
+record-decision:
+	@echo "📝 Recording critical decision..."
+	@if [ -z "$(CONTEXT)" ] || [ -z "$(CHOSEN)" ] || [ -z "$(REASONING)" ]; then \
+		echo "Usage: make record-decision CONTEXT='description' CHOSEN='option' REASONING='why'"; \
+		exit 1; \
+	fi
+	@source venv/bin/activate && python -c "import sys; sys.path.insert(0, 'src'); from agents.enhanced_context import EnhancedContextManager; manager = EnhancedContextManager('.'); decision_id = manager.record_decision('$(CONTEXT)', ['$(CHOSEN)', 'alternative'], '$(CHOSEN)', '$(REASONING)'); print(f'✅ Decision recorded: {decision_id}')"
+
+# VIB-015: Smart Integrated Workflow
+work:
+	@echo "🎯 SMART MILESTONE WORKFLOW - VIB-015"
+	@echo "========================================="
+	@if [ -z "$(TASK)" ]; then \
+		echo "❌ Usage: make work TASK='your work description'"; \
+		echo ""; \
+		echo "📋 Example: make work TASK='implement user authentication'"; \
+		echo ""; \
+		echo "🔄 This command will:"; \
+		echo "  1. Check current milestone discipline"; \
+		echo "  2. Validate task alignment"; \
+		echo "  3. Guide you through proper workflow"; \
+		exit 1; \
+	fi
+	@echo "📋 TASK: $(TASK)"
+	@echo ""
+	@echo "🎯 Step 1: Checking milestone discipline..."
+	@source venv/bin/activate && python src/agents/milestone_enforcer.py
+	@echo ""
+	@echo "⚖️  Step 2: Validating task alignment..."
+	@source venv/bin/activate && python src/agents/milestone_enforcer.py "$(TASK)"
+	@echo ""
+	@echo "📖 Next: Run 'make help-workflow' for guidance"
+
+help-workflow:
+	@echo "🎯 VIBECODER MILESTONE WORKFLOW GUIDE"
+	@echo "====================================="
+	@echo ""
+	@echo "📋 BASIC WORKFLOW:"
+	@echo "  1. make work TASK='description'     # Smart workflow check"
+	@echo "  2. make milestone-start VIB=VIB-XXX # Start milestone if needed"
+	@echo "  3. make validate                    # Always validate when done"
+	@echo ""
+	@echo "🔧 COMMON COMMANDS:"
+	@echo "  make check-focus                    # Check current discipline"
+	@echo "  make roadmap                        # See all milestones" 
+	@echo "  make context-snapshot               # Create AI handover context"
+	@echo ""
+	@echo "⚠️  DISCIPLINE RULES:"
+	@echo "  • Must have one active milestone"
+	@echo "  • All work must align with active milestone (>70%)"
+	@echo "  • No ad-hoc work without VIB milestone"
+	@echo "  • Complete milestones in logical order"
+	@echo ""
+	@echo "📖 Full documentation: VIBECODER-MANUAL.md"
