@@ -13,7 +13,7 @@
 SHELL := /bin/bash
 PROJECT_DIR := $(CURDIR)
 
-.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress visual-roadmap roadmap-save duplicate-check duplicate-report file-check file-suggest file-organize
+.PHONY: init generate validate heal lock sign audit backup clean rebuild update-handover roadmap check-focus monitor dashboard server automation autorun compress visual-roadmap roadmap-save duplicate-check duplicate-report file-check file-suggest file-organize enforce-discipline milestone-start
 
 init:
 	@python main.py generate $(PROJECT_DIR)
@@ -54,7 +54,7 @@ update-handover:
 roadmap:
 	@python -c "from src.agents.vibecoder_roadmap import get_current_vibecoder_focus; import json; print('🎯 Current Vibecoder Focus:'); print(json.dumps(get_current_vibecoder_focus('$(PROJECT_DIR)'), indent=2))"
 
-check-focus:
+check-focus-old:
 	@python -c "from src.agents.vibecoder_roadmap import check_vibecoder_alignment; import json; import sys; work=input('Proposed work: '); result=check_vibecoder_alignment('$(PROJECT_DIR)', work); print(json.dumps(result, indent=2))"
 
 clean:
@@ -113,3 +113,24 @@ file-organize:
 
 rebuild: clean init generate validate lock sign audit backup
 	@echo "Rebuild complete."
+
+# VIB-015: Milestone Discipline Enforcement
+check-focus:
+	@echo "🎯 MILESTONE DISCIPLINE CHECK:"
+	@source venv/bin/activate && python src/agents/milestone_enforcer.py
+
+enforce-discipline:
+	@echo "⚠️ DISCIPLINE ENFORCEMENT: Checking proposed work..."
+	@if [ -z "$(WORK)" ]; then \
+		echo "Usage: make enforce-discipline WORK='your proposed work description'"; \
+		exit 1; \
+	fi
+	@source venv/bin/activate && python src/agents/milestone_enforcer.py "$(WORK)"
+
+milestone-start:
+	@echo "🎯 STARTING MILESTONE: $(VIB)"
+	@if [ -z "$(VIB)" ]; then \
+		echo "Usage: make milestone-start VIB=VIB-006"; \
+		exit 1; \
+	fi
+	@source venv/bin/activate && python -c "import sys; sys.path.insert(0, 'src'); from agents.vibecoder_roadmap import VibecoderRoadmapManager; roadmap = VibecoderRoadmapManager('.'); roadmap.start_milestone('$(VIB)'); print('Milestone $(VIB) started')"
