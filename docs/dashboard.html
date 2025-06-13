@@ -352,11 +352,11 @@
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Files</span>
-                    <span class="metric-value" id="fileCount">4218 files</span>
+                    <span class="metric-value" id="fileCount">4240 files</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Size</span>
-                    <span class="metric-value">109.71 MB</span>
+                    <span class="metric-value">109.76 MB</span>
                 </div>
                 <div class="metric-row">
                     <span class="metric-label">Memory</span>
@@ -462,7 +462,7 @@
         // Update file count (simulated real-time)
         function updateFileCount() {
             // This would normally fetch from monitoring API
-            const baseCount = 4218;
+            const baseCount = 4240;
             const variance = Math.floor(Math.random() * 10) - 5; // -5 to +5 variation
             document.getElementById('fileCount').textContent = `${baseCount + variance} files`;
         }

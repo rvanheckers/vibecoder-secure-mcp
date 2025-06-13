@@ -193,6 +193,63 @@ class VibecoderMonitor:
                 "action": "Consider committing your changes"
             })
         
+        # VIB-005: Check milestone deadlines (Vibecoder-specific)
+        vibecoder_focus = self._get_current_focus()
+        if not isinstance(vibecoder_focus, dict) or "error" in vibecoder_focus:
+            pass  # Skip if roadmap unavailable
+        else:
+            active_milestones = vibecoder_focus.get("active_milestones", [])
+            from datetime import datetime, timedelta
+            current_date = datetime.now()
+            
+            for milestone in active_milestones:
+                target_date_str = milestone.get("target_date")
+                if target_date_str:
+                    try:
+                        target_date = datetime.fromisoformat(target_date_str.replace('Z', '+00:00'))
+                        if target_date.tzinfo:
+                            target_date = target_date.replace(tzinfo=None)
+                        
+                        days_until = (target_date - current_date).days
+                        
+                        if days_until < 0:
+                            alerts.append({
+                                "level": "critical",
+                                "type": "milestone_overdue",
+                                "message": f"Milestone {milestone['id']} is overdue",
+                                "details": f"Target: {target_date_str}, Status: {milestone['status']}",
+                                "action": f"Complete or reschedule {milestone['id']}"
+                            })
+                        elif days_until <= 1:
+                            alerts.append({
+                                "level": "warning",
+                                "type": "milestone_due_soon",
+                                "message": f"Milestone {milestone['id']} due in {days_until} day(s)",
+                                "details": f"Target: {target_date_str}, Priority: {milestone['priority']}",
+                                "action": f"Focus on completing {milestone['id']}"
+                            })
+                    except Exception:
+                        pass  # Skip if date parsing fails
+        
+        # VIB-005: Check AI handover document freshness
+        claude_file = self.project_path / "CLAUDE.md"
+        if claude_file.exists():
+            try:
+                mod_time = claude_file.stat().st_mtime
+                current_time = time.time()
+                hours_since_update = (current_time - mod_time) / 3600
+                
+                if hours_since_update > 24:
+                    alerts.append({
+                        "level": "warning",
+                        "type": "stale_handover",
+                        "message": "AI handover document not updated recently",
+                        "details": f"Last modified: {hours_since_update:.1f} hours ago",
+                        "action": "Run 'make update-handover' to refresh context"
+                    })
+            except Exception:
+                pass  # Skip if file check fails
+        
         return alerts
     
     def _check_required_files(self) -> Dict[str, Any]:
@@ -896,6 +953,62 @@ def create_dashboard_html(project_path: str) -> str:
     return html
 
 
+def generate_monitoring_summary(project_path: str) -> str:
+    """Generate a concise monitoring summary for VIB-005"""
+    monitor = VibecoderMonitor(project_path)
+    status = monitor.get_real_time_status()
+    
+    # Health overview
+    health_status = status["project_health"]["status"]
+    health_emoji = "🟢" if health_status == "healthy" else "🟡" if health_status == "warning" else "🔴"
+    
+    # Active milestones
+    active_milestones = status["vibecoder_focus"].get("active_milestones", [])
+    milestone_summary = ""
+    if active_milestones:
+        for milestone in active_milestones:
+            milestone_summary += f"  📍 {milestone['id']}: {milestone['title']} ({milestone['status']})\n"
+    else:
+        milestone_summary = "  📍 No active milestones\n"
+    
+    # Alerts summary
+    alerts = status["alerts"]
+    alerts_summary = ""
+    if alerts:
+        for alert in alerts:
+            alert_emoji = "🚨" if alert["level"] == "critical" else "⚠️" if alert["level"] == "warning" else "ℹ️"
+            alerts_summary += f"  {alert_emoji} {alert['message']}\n"
+    else:
+        alerts_summary = "  ✅ No active alerts\n"
+    
+    # Performance metrics
+    perf = status["performance_metrics"]
+    
+    summary = f"""
+🎯 VIB-005 Monitoring Summary
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{health_emoji} Project Health: {health_status.upper()}
+📊 Files: {perf['file_count']:,} | Size: {perf['project_size_mb']:.1f}MB
+💾 Memory: {perf['memory_percent']:.1f}% | CPU: {perf['cpu_percent']:.1f}%
+
+🎯 Active Milestones:
+{milestone_summary}
+🚨 Alerts:
+{alerts_summary}
+📈 Integrity: {status['integrity_status']['status'].upper()}
+🕐 Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+💡 Quick Actions:
+  • make dashboard    - Refresh HTML dashboard
+  • make validate     - Run integrity check
+  • make heal         - Auto-fix issues
+  • make roadmap      - View current focus
+"""
+    
+    return summary
+
+
 if __name__ == "__main__":
     import sys
     if len(sys.argv) > 1:
@@ -912,9 +1025,13 @@ if __name__ == "__main__":
                 f.write(html)
             
             print(f"✅ Dashboard created: {dashboard_file}")
+        elif len(sys.argv) > 2 and sys.argv[2] == "summary":
+            # Show enhanced summary
+            summary = generate_monitoring_summary(project_path)
+            print(summary)
         else:
             # Show status
             status = monitor.get_real_time_status()
             print(json.dumps(status, indent=2))
     else:
-        print("Usage: python monitoring.py <project_path> [dashboard]")
+        print("Usage: python monitoring.py <project_path> [dashboard|summary]")

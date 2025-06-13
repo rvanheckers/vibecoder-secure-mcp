@@ -63,6 +63,9 @@ clean:
 monitor:
 	@python src/agents/monitoring.py $(PROJECT_DIR)
 
+monitor-summary:
+	@source venv/bin/activate && python src/agents/monitoring.py "$(PROJECT_DIR)" summary
+
 dashboard:
 	@cd "$(PROJECT_DIR)" && source venv/bin/activate && python src/agents/monitoring.py . dashboard
 	@echo "Dashboard created at docs/dashboard.html"
